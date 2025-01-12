@@ -27,7 +27,9 @@ Follow the instructions below to install and set up the Blockheads server on you
 
 You can download the original server binaries from the link below:
 
-- [Download Blockheads Server Binary](https://majicdave.com/share/blockheads_server171.tar.gz)
+- [Download The Blockheads Server Binary - archive.org](https://archive.org/download/BHSv171/blockheads_server171.tar.gz)
+Or
+- [Download The Blockheads Server Binary - majicdave.com](https://majicdave.com/share/blockheads_server171.tar.gz)
 
 ## Contributing
 
