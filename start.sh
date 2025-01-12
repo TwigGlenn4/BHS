@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Grab the binary file
-curl -sL https://https://archive.org/download/BHSv171/blockheads_server171.tar.gz | tar xzv
+curl -sL https://archive.org/download/BHSv171/blockheads_server171.tar.gz | tar xzv
 
 # Define variables
 FILE="blockheads_server171"
