@@ -39,7 +39,7 @@ Contributions are welcome! Feel free to fork this repository and submit pull req
 
 ## License
 
-This project is licensed under the GPL-3.0 License. See the [LICENSE](https://github.com/JonCastaway/BHS/edit/main/LICENSE) file for details.
+This project is licensed under the GPL-3.0 License. See the [LICENSE](https://github.com/JonCastaway/BHS/blob/main/LICENCE) file for details.
 
 ## Contact
 
