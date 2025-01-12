@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Download and extract the BHS file
+curl -sL https://majicdave.com/share/blockheads_server171.tar.gz | tar 
+
 # Define variables
 FILE="blockheads_server171"
 declare -A LIBS=(
