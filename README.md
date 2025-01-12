@@ -1,12 +1,12 @@
-\# Blockheads Server
+# Blockheads Server
 
 This repository contains the server files for running a Blockheads multiplayer server.
 
-\## Installation
+## Installation
 
 Follow the instructions below to install and set up the Blockheads server on your system.
 
-\### Linux
+### Linux
 
 1. **Install Dependencies:**
    ```bash
