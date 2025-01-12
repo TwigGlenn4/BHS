@@ -30,6 +30,7 @@ progress_bar() {
     local BLANK_BAR='                    '
     local PROGRESS=$1
     printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
+    echo -ne "\n"
 }
 
 # Replace needed libraries with progress feedback
