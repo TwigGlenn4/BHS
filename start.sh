@@ -30,47 +30,24 @@ progress_bar() {
     local BLANK_BAR='                    '
     local PROGRESS=$1
     printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
-    echo -ne "\n"
 }
 
 # Replace needed libraries with progress feedback
 TOTAL_LIBS=${#LIBS[@]}
 COUNT=0
-declare -A STATUS
 
-# Initialize status dictionary
-for LIB in "${!LIBS[@]}"; do
-    STATUS[$LIB]="Pending"
-done
-
-# Function to display progress
-display_progress() {
-    clear
-    echo "Patching Libraries:"
-    for LIB in "${!LIBS[@]}"; do
-        echo -e "$LIB -> ${LIBS[$LIB]} [${STATUS[$LIB]}]"
-    done
-}
-
-# Replace libraries and update status
+# Replace libraries and update progress bar
 for LIB in "${!LIBS[@]}"; do
     COUNT=$((COUNT+1))
-    STATUS[$LIB]="In Progress"
-    display_progress
 
     if patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE; then
-        STATUS[$LIB]="Completed"
+        # Show progress bar
+        PERCENTAGE=$((COUNT * 100 / TOTAL_LIBS / 5))
+        progress_bar $PERCENTAGE
     else
-        STATUS[$LIB]="Failed"
         echo -e "\nFailed to patch the BHS for $LIB" >&2
-        display_progress
         exit 1
     fi
-
-    display_progress
-    # Show progress bar
-    PERCENTAGE=$((COUNT * 100 / TOTAL_LIBS))
-    progress_bar $PERCENTAGE
 done
 
 echo -e "\n\nThe BHS has been patched successfully!"
