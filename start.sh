@@ -63,6 +63,31 @@ declare -a PACKAGES_DEBIAN=(
     'libgcc-s1'
 )
 
+declare -a PACKAGES_ARCH=(
+    'base-devel'
+    'git'
+    'cmake'
+    'ninja'
+    'clang'
+    'systemtap'
+    'libbsd'
+    'curl'
+    'tar'
+    'grep'
+    'gawk'
+    'patchelf'
+    'gnustep-base'
+    'gcc-libs'
+    'gnutls'
+    'libgcrypt'
+    'libxml2'
+    'libffi'
+    'libnsl'
+    'zlib'
+    'icu'
+    'libdispatch'
+)
+
 build_libdispatch() {
     if [ -d "${DIR}/swift-corelibs-libdispatch/build" ]; then
         rm -rf 'swift-corelibs-libdispatch'        
@@ -88,6 +113,11 @@ install_packages_debian() {
     fi
 }
 
+install_packages_arch() {
+    echo "Installing packages for Arch Linux..."
+    $ROOT pacman -Sy --noconfirm --needed "${PACKAGES_ARCH[@]}" || exit 1
+}
+
 install_packages() {
     if [ ! -f /etc/os-release ]; then
         echo "Could not detect the operating system because /etc/os-release does not exist."
@@ -97,6 +127,9 @@ install_packages() {
     case $ID in
         debian|ubuntu)
             install_packages_debian
+            ;;
+        arch)
+            install_packages_arch
             ;;
         *)
             echo "Unsupported operating system: $ID"
