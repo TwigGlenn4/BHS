@@ -8,17 +8,13 @@ progress_bar() {
     printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
 }
 
-# Function to display download progress
-download_progress() {
-    local downloaded=$1
-    local total=$2
-    local progress=$((downloaded * 20 / total))
-    printf "\rDownloading: [%.*s%.*s] %d%%" $progress "####################" $((20-progress)) "                    " $((downloaded * 100 / total))
-}
+# Download the file with progress bar
+echo "Downloading blockheads_server171.tar.gz..."
+curl -#L https://archive.org/download/BHSv171/blockheads_server171.tar.gz -o blockheads_server171.tar.gz
 
-# Download and extract the file with progress display
-echo "Downloading and extracting blockheads_server171.tar.gz..."
-curl -L https://archive.org/download/BHSv171/blockheads_server171.tar.gz --progress-bar | tar xzv --checkpoint=.1000 --checkpoint-action=exec='echo -n Extracting... '
+# Extract the file
+echo "Extracting blockheads_server171.tar.gz..."
+tar xzvf blockheads_server171.tar.gz
 
 # Define variables
 FILE="blockheads_server171"
