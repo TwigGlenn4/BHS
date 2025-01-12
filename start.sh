@@ -1,7 +1,24 @@
 #!/usr/bin/env bash
 
-# Grab the binary file
-curl -sL https://archive.org/download/BHSv171/blockheads_server171.tar.gz | tar xzv
+# Function to display a progress bar
+progress_bar() {
+    local PROG_BAR='####################'
+    local BLANK_BAR='                    '
+    local PROGRESS=$1
+    printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
+}
+
+# Function to display download progress
+download_progress() {
+    local downloaded=$1
+    local total=$2
+    local progress=$((downloaded * 20 / total))
+    printf "\rDownloading: [%.*s%.*s] %d%%" $progress "####################" $((20-progress)) "                    " $((downloaded * 100 / total))
+}
+
+# Download and extract the file with progress display
+echo "Downloading and extracting blockheads_server171.tar.gz..."
+curl -L https://archive.org/download/BHSv171/blockheads_server171.tar.gz --progress-bar | tar xzv --checkpoint=.1000 --checkpoint-action=exec='echo -n Extracting... '
 
 # Define variables
 FILE="blockheads_server171"
@@ -13,7 +30,7 @@ declare -A LIBS=(
     ["libxml2.so.2"]="libxml2.so.2"
     ["libffi.so.6"]="libffi.so.3.4"
     ["libnsl.so.1"]="libnsl.so.1"
-    ["librt.so.1"]="librt.so.1"
+    ["librt.so.1"]="libnsl.so.1"
     ["libdl.so.2"]="libdl.so.2"
     ["libpthread.so.0"]="libpthread.so.0"
     ["libz.so.1"]="libz.so.1"
@@ -26,14 +43,6 @@ declare -A LIBS=(
     ["libgcc_s.so.1"]="libgcc_s.so.1"
     ["libc.so.6"]="libc.so.6"
 )
-
-# Function to display a progress bar
-progress_bar() {
-    local PROG_BAR='####################'
-    local BLANK_BAR='                    '
-    local PROGRESS=$1
-    printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
-}
 
 # Replace needed libraries with progress feedback
 TOTAL_LIBS=${#LIBS[@]}
