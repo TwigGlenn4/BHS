@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Download and extract the file
-curl -sL https://majicdave.com/share/blockheads_server171.tar.gz | tar xvz
-
 # Define variables
 FILE="blockheads_server171"
 declare -A LIBS=(
@@ -13,7 +10,7 @@ declare -A LIBS=(
     ["libxml2.so.2"]="libxml2.so.2"
     ["libffi.so.6"]="libffi.so.3.4"
     ["libnsl.so.1"]="libnsl.so.1"
-    ["librt.so.1"]="libnsl.so.1"
+    ["librt.so.1"]="librt.so.1"
     ["libdl.so.2"]="libdl.so.2"
     ["libpthread.so.0"]="libpthread.so.0"
     ["libz.so.1"]="libz.so.1"
@@ -39,18 +36,12 @@ progress_bar() {
 TOTAL_LIBS=${#LIBS[@]}
 COUNT=0
 
-# Replace libraries and update progress bar
 for LIB in "${!LIBS[@]}"; do
     COUNT=$((COUNT+1))
-
-    if patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE; then
-        # Show progress bar
-        PERCENTAGE=$((COUNT * 100 / TOTAL_LIBS / 5))
-        progress_bar $PERCENTAGE
-    else
-        echo -e "\nFailed to patch the BHS for $LIB" >&2
-        exit 1
-    fi
+    PERCENTAGE=$((COUNT * 100 / TOTAL_LIBS / 5))
+    echo -n "Patching $LIB -> ${LIBS[$LIB]} "
+    progress_bar $PERCENTAGE
+    patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE || { echo "Failed to patch the BHS for $LIB"; exit 1; }
 done
 
-echo -e "\n\nThe BHS has been patched successfully!"
+echo -e "\nThe BHS has been patched successfully!"
