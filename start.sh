@@ -24,39 +24,52 @@ declare -A LIBS=(
     ["libc.so.6"]="libc.so.6"
 )
 
+# Function to display a progress bar
+progress_bar() {
+    local PROG_BAR='####################'
+    local BLANK_BAR='                    '
+    local PROGRESS=$1
+    printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
+}
+
+# Replace needed libraries with progress feedback
+TOTAL_LIBS=${#LIBS[@]}
+COUNT=0
+declare -A STATUS
+
+# Initialize status dictionary
+for LIB in "${!LIBS[@]}"; do
+    STATUS[$LIB]="Pending"
+done
+
+# Function to display progress
 display_progress() {
     clear
-    echo "Patching BHS:"
+    echo "Patching Libraries:"
     for LIB in "${!LIBS[@]}"; do
         echo -e "$LIB -> ${LIBS[$LIB]} [${STATUS[$LIB]}]"
     done
 }
 
-TOTAL_LIBS=${#LIBS[@]}
-COUNT=0
-declare -A STATUS
-
-for LIB in "${!LIBS[@]}"; do
-    STATUS[$LIB]="Waiting.."
-done
-
-display_progress
-
+# Replace libraries and update status
 for LIB in "${!LIBS[@]}"; do
     COUNT=$((COUNT+1))
-    STATUS[$LIB]="In Progress!"
+    STATUS[$LIB]="In Progress"
     display_progress
 
     if patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE; then
-        STATUS[$LIB]="Completed!"
+        STATUS[$LIB]="Completed"
     else
         STATUS[$LIB]="Failed"
-        echo "There was an issue patching the BHS for $LIB" >&2
+        echo -e "\nFailed to patch the BHS for $LIB" >&2
         display_progress
         exit 1
     fi
 
     display_progress
+    # Show progress bar
+    PERCENTAGE=$((COUNT * 100 / TOTAL_LIBS))
+    progress_bar $PERCENTAGE
 done
 
-echo -e "\nThe BHS has been patched successfully!"
+echo -e "\n\nThe BHS has been patched successfully!"
