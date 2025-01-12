@@ -18,11 +18,15 @@ fi
 
 # Download the file with progress bar
 echo "Downloading blockheads_server171.tar.gz..."
+
+curl -#L https://majicdave.com/share/blockheads_server171.tar.gz --no-check-certificate -o blockheads_server171.tar.gz
+if not available then try:
 curl -#L https://archive.org/download/BHSv171/blockheads_server171.tar.gz -o blockheads_server171.tar.gz
 
 # Extract the file
 echo "Extracting blockheads_server171.tar.gz..."
 tar xzvf blockheads_server171.tar.gz
+chmod +x blockheads_server171
 
 # Define variables
 FILE="blockheads_server171"
