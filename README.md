@@ -15,7 +15,7 @@ Follow the instructions below to install and set up the Blockheads server on you
 
 2. **Download and Run the Server Script:**
    ```bash
-   curl -sL https://raw.githubusercontent.com/JonCastaway/BHS-Linux-/main/start.sh | bash -s -
+   curl -sL https://raw.githubusercontent.com/JonCastaway/BHS/main/start.sh | bash -s -
    ```
 
 ### macOS
