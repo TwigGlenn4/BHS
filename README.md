@@ -1,4 +1,4 @@
-# Blockheads Server
+# The Blockheads Server for Linux and Mac
 
 This repository contains the server files for running a Blockheads multiplayer server.
 
