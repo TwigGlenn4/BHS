@@ -2,6 +2,9 @@
 
 This repository contains the server files for running a Blockheads multiplayer server.
 
+
+   **Warning:** Running `curl` to bash scripts from the internet can be risky. It's always recommended to review the code before executing it to ensure it is safe and does not contain any malicious content.
+   
 ## Installation
 
 Follow the instructions below to install and set up the Blockheads server on your system.
@@ -25,12 +28,9 @@ Follow the instructions below to install and set up the Blockheads server on you
 
 ## Original Binaries
 
-You can download the original server binaries from the link below:
+You can download the original server binaries from the links below:
 
 - [Download The Blockheads Server Binary - archive.org](https://archive.org/download/BHSv171/blockheads_server171.tar.gz)
-  
-Or
-
 - [Download The Blockheads Server Binary - majicdave.com](https://majicdave.com/share/blockheads_server171.tar.gz)
 
 ## Contributing
