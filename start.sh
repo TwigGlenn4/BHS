@@ -24,38 +24,39 @@ declare -A LIBS=(
     ["libc.so.6"]="libc.so.6"
 )
 
-# Replace needed libraries with interactive display
-TOTAL_LIBS=${#LIBS[@]}
-COUNT=0
-declare -A STATUS
-
-# Initialize status dictionary
-for LIB in "${!LIBS[@]}"; do
-    STATUS[$LIB]="Pending"
-done
-
-# Function to display progress
 display_progress() {
     clear
-    echo "Patching Libraries:"
+    echo "Patching BHS:"
     for LIB in "${!LIBS[@]}"; do
         echo -e "$LIB -> ${LIBS[$LIB]} [${STATUS[$LIB]}]"
     done
 }
 
-# Replace libraries and update status
+TOTAL_LIBS=${#LIBS[@]}
+COUNT=0
+declare -A STATUS
+
+for LIB in "${!LIBS[@]}"; do
+    STATUS[$LIB]="Waiting.."
+done
+
+display_progress
+
 for LIB in "${!LIBS[@]}"; do
     COUNT=$((COUNT+1))
-    STATUS[$LIB]="In Progress"
+    STATUS[$LIB]="In Progress!"
     display_progress
+
     if patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE; then
-        STATUS[$LIB]="Completed"
+        STATUS[$LIB]="Completed!"
     else
         STATUS[$LIB]="Failed"
-        echo "Failed to patch the BHS for $LIB" >&2
+        echo "There was an issue patching the BHS for $LIB" >&2
+        display_progress
         exit 1
     fi
+
     display_progress
 done
 
-echo -e "\nAll libraries have been patched successfully!"
+echo -e "\nThe BHS has been patched successfully!"
