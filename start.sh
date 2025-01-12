@@ -24,9 +24,24 @@ declare -A LIBS=(
     ["libc.so.6"]="libc.so.6"
 )
 
-# Replace needed libraries
+# Function to display a progress bar
+progress_bar() {
+    local PROG_BAR='####################'
+    local BLANK_BAR='                    '
+    local PROGRESS=$1
+    printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
+}
+
+# Replace needed libraries with progress feedback
+TOTAL_LIBS=${#LIBS[@]}
+COUNT=0
+
 for LIB in "${!LIBS[@]}"; do
+    COUNT=$((COUNT+1))
+    PERCENTAGE=$((COUNT * 100 / TOTAL_LIBS / 5))
+    echo -n "Patching $LIB -> ${LIBS[$LIB]} "
+    progress_bar $PERCENTAGE
     patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE || { echo "Failed to patch the BHS for $LIB"; exit 1; }
 done
 
-echo "The BHS has been patched successfully!"
+echo -e "\nThe BHS has been patched successfully!"
