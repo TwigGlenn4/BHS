@@ -8,6 +8,14 @@ progress_bar() {
     printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
 }
 
+# Check if patchelf is installed, if not, install it
+if ! command -v patchelf &> /dev/null
+then
+    echo "patchelf could not be found, installing..."
+    sudo apt-get update
+    sudo apt-get install -y patchelf
+fi
+
 # Download the file with progress bar
 echo "Downloading blockheads_server171.tar.gz..."
 curl -#L https://archive.org/download/BHSv171/blockheads_server171.tar.gz -o blockheads_server171.tar.gz
@@ -52,9 +60,9 @@ for LIB in "${!LIBS[@]}"; do
     patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE || { echo "Failed to patch the BHS for $LIB"; exit 1; }
 done
 
-echo -e "\nThe BHS has been patched successfully and is now generating the BHS script"
+echo -e "\nThe BHS has been patched successfully!"
 
-# Create run.sh
+# Create run.sh with the specified content
 cat <<EOF > run.sh
 #!/bin/bash
 
@@ -70,4 +78,4 @@ EOF
 # Make run.sh executable
 chmod +x run.sh
 
-echo -e "\nThe BHS script (run.sh) has been created and made executable."
+echo -e "\nThe run.sh script has been created and made executable."
