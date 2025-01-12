@@ -52,4 +52,22 @@ for LIB in "${!LIBS[@]}"; do
     patchelf --replace-needed $LIB ${LIBS[$LIB]} $FILE || { echo "Failed to patch the BHS for $LIB"; exit 1; }
 done
 
-echo -e "\nThe BHS has been patched successfully!"
+echo -e "\nThe BHS has been patched successfully and is now generating the BHS script"
+
+# Create run.sh
+cat <<EOF > run.sh
+#!/bin/bash
+
+world_id="83cad395edb8d0f1912fec89508d8a1d"
+server_port=15151
+
+while true; do
+        ./blockheads_server171 -o "\$world_id" -p "\$server_port" >> \$HOME/GNUstep/Library/ApplicationSupport/TheBlockheads/saves/\$world_id/console.log 2>&1
+        sleep 1
+done
+EOF
+
+# Make run.sh executable
+chmod +x run.sh
+
+echo -e "\nThe BHS script (run.sh) has been created and made executable."
