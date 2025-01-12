@@ -8,20 +8,33 @@ progress_bar() {
     printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
 }
 
-# Check if patchelf is installed, if not, install it
-if ! command -v patchelf &> /dev/null
-then
-    echo "patchelf could not be found, installing..."
-    sudo apt-get update
-    sudo apt-get install -y patchelf
-fi
+# Check and install required packages
+install_if_missing() {
+    PACKAGE=$1
+    if ! dpkg -s $PACKAGE &> /dev/null
+    then
+        echo "$PACKAGE could not be found, installing..."
+        sudo apt-get update
+        sudo apt-get install -y $PACKAGE
+    fi
+}
+
+install_if_missing "patchelf"
+install_if_missing "libgnustep-base1.30"
+install_if_missing "libdispatch0.1"
 
 # Download the file with progress bar
 echo "Downloading blockheads_server171.tar.gz..."
 
 curl -#L https://majicdave.com/share/blockheads_server171.tar.gz --no-check-certificate -o blockheads_server171.tar.gz
-if not available then try:
-curl -#L https://archive.org/download/BHSv171/blockheads_server171.tar.gz -o blockheads_server171.tar.gz
+if [ $? -ne 0 ]; then
+    echo "Failed to download from majicdave.com, trying archive.org..."
+    curl -#L https://archive.org/download/BHSv171/blockheads_server171.tar.gz -o blockheads_server171.tar.gz
+    if [ $? -ne 0 ]; then
+        echo "Failed to download from both sources."
+        exit 1
+    fi
+fi
 
 # Extract the file
 echo "Extracting blockheads_server171.tar.gz..."
@@ -83,3 +96,6 @@ EOF
 chmod +x run.sh
 
 echo -e "\nThe run.sh script has been created and made executable."
+
+# Execute the help command
+./blockheads_server171 --help
