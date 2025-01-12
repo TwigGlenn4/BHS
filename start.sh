@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+DIR=$(pwd)
 # Function to display a progress bar
 progress_bar() {
     local PROG_BAR='####################'
@@ -8,25 +8,142 @@ progress_bar() {
     printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
 }
 
-# Check and install required packages
-install_if_missing() {
-    PACKAGE=$1
-    if ! dpkg -s $PACKAGE &> /dev/null
-    then
-        echo "$PACKAGE could not be found, installing..."
-        sudo apt-get update
-        sudo apt-get install -y $PACKAGE
+
+# Function to find a library
+find_library() {
+    SEARCH=$1
+    LIBRARY=$(ldconfig -p | grep -F $SEARCH -m 1 | awk '{print $1}')
+    if [ -z "$LIBRARY" ]; then
+        return 1
+    fi
+    printf '%s' "$LIBRARY"
+}
+
+ROOT=''
+echo "Checking for superuser privileges..."
+if [ "$(whoami)" != "root" ]; then
+    if ! command -v sudo 2>&1 >/dev/null; then
+        echo "Not running as root and sudo is not available."
+        exit 1
+    fi
+    if ! sudo -v; then
+        echo "Failed to acquire superuser privileges."
+        exit 1
+    fi
+    ROOT='sudo'
+fi
+
+# Refresh system library cache
+$ROOT ldconfig
+
+declare -a PACKAGES_DEBIAN=(
+    'git'
+    'cmake'
+    'ninja-build'
+    'clang'
+    'systemtap-sdt-dev'
+    'libbsd-dev'
+    'linux-libc-dev'
+    'curl'
+    'tar'
+    'grep'
+    'mawk'
+    'patchelf'
+    '^libgnustep-base1\.[0-9]*$'
+    'libobjc4'
+    '^libgnutls[0-9]*$'
+    '^libgcrypt[0-9]*$'
+    'libxml2'
+    '^libffi[0-9]*$'
+    '^libnsl[0-9]*$'
+    'zlib1g'
+    '^libicu[0-9]*$'
+    'libicu-dev'
+    'libstdc++6'
+    'libgcc-s1'
+)
+
+declare -a PACKAGES_ARCH=(
+    'base-devel'
+    'git'
+    'cmake'
+    'ninja'
+    'clang'
+    'systemtap'
+    'libbsd'
+    'curl'
+    'tar'
+    'grep'
+    'gawk'
+    'patchelf'
+    'gnustep-base'
+    'gcc-libs'
+    'gnutls'
+    'libgcrypt'
+    'libxml2'
+    'libffi'
+    'libnsl'
+    'zlib'
+    'icu'
+    'libdispatch'
+)
+
+build_libdispatch() {
+    if [ -d "${DIR}/swift-corelibs-libdispatch/build" ]; then
+        rm -rf 'swift-corelibs-libdispatch'        
+    fi
+    git clone --depth 1 'https://github.com/swiftlang/swift-corelibs-libdispatch.git' "${DIR}/swift-corelibs-libdispatch" || exit 1
+    mkdir -p "${DIR}/swift-corelibs-libdispatch/build" || exit 1
+    cd "${DIR}/swift-corelibs-libdispatch/build" || exit 1
+    cmake -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. || exit 1
+    ninja "-j$(nproc)" || exit 1
+    $ROOT ninja install || exit 1
+    cd "${DIR}" || exit 1
+    # Refresh system library cache
+    $ROOT ldconfig
+}
+
+install_packages_debian() {
+    echo "Installing packages for Debian/Ubuntu..."
+    $ROOT apt-get update || exit 1
+    $ROOT apt-get install -y "${PACKAGES_DEBIAN[@]}" || exit 1
+    if ! find_library 'libdispatch.so'; then
+        echo "libdispatch.so not found, building libdispatch..."
+        build_libdispatch
     fi
 }
 
-install_if_missing "patchelf"
-install_if_missing "libgnustep-base1.30"
-install_if_missing "libdispatch0.1"
+install_packages_arch() {
+    echo "Installing packages for Arch Linux..."
+    $ROOT pacman -Sy --noconfirm --needed "${PACKAGES_ARCH[@]}" || exit 1
+}
+
+install_packages() {
+    if [ ! -f /etc/os-release ]; then
+        echo "Could not detect the operating system because /etc/os-release does not exist."
+        exit 1
+    fi
+    source /etc/os-release
+    case $ID in
+        debian|ubuntu)
+            install_packages_debian
+            ;;
+        arch)
+            install_packages_arch
+            ;;
+        *)
+            echo "Unsupported operating system: $ID"
+            exit 1
+            ;;
+    esac
+}
+
+install_packages
 
 # Download the file with progress bar
 echo "Downloading blockheads_server171.tar.gz..."
 
-curl -#L https://majicdave.com/share/blockheads_server171.tar.gz --no-check-certificate -o blockheads_server171.tar.gz
+curl -#L https://majicdave.com/share/blockheads_server171.tar.gz --insecure -o blockheads_server171.tar.gz
 if [ $? -ne 0 ]; then
     echo "Failed to download from majicdave.com, trying archive.org..."
     curl -#L https://archive.org/download/BHSv171/blockheads_server171.tar.gz -o blockheads_server171.tar.gz
@@ -41,28 +158,31 @@ echo "Extracting blockheads_server171.tar.gz..."
 tar xzvf blockheads_server171.tar.gz
 chmod +x blockheads_server171
 
+# Unlink tarball
+rm -v blockheads_server171.tar.gz
+
 # Define variables
 FILE="blockheads_server171"
 declare -A LIBS=(
-    ["libgnustep-base.so.1.24"]="libgnustep-base.so.1.30"
-    ["libobjc.so.4.6"]="libobjc.so.4.7"
-    ["libgnutls.so.26"]="libgnutls.so.3.7"
-    ["libgcrypt.so.11"]="libgcrypt.so.1.10.0"
-    ["libxml2.so.2"]="libxml2.so.2"
-    ["libffi.so.6"]="libffi.so.3.4"
-    ["libnsl.so.1"]="libnsl.so.1"
-    ["librt.so.1"]="libnsl.so.1"
-    ["libdl.so.2"]="libdl.so.2"
-    ["libpthread.so.0"]="libpthread.so.0"
-    ["libz.so.1"]="libz.so.1"
-    ["libicui18n.so.48"]="libicui18n.so.70.1"
-    ["libicuuc.so.48"]="libicuuc.so.70.1"
-    ["libicudata.so.48"]="libicudata.so.70.1"
-    ["libdispatch.so"]="libdispatch.so.0.1"
-    ["libm.so.6"]="libm.so.6"
-    ["libstdc++.so.6"]="libstdc++.so.6"
-    ["libgcc_s.so.1"]="libgcc_s.so.1"
-    ["libc.so.6"]="libc.so.6"
+    ["libgnustep-base.so.1.24"]="$(find_library 'libgnustep-base.so')"
+    ["libobjc.so.4.6"]="$(find_library 'libobjc.so')"
+    ["libgnutls.so.26"]="$(find_library 'libgnutls.so')"
+    ["libgcrypt.so.11"]="$(find_library 'libgcrypt.so')"
+    ["libxml2.so.2"]="$(find_library 'libxml2.so')"
+    ["libffi.so.6"]="$(find_library 'libffi.so')"
+    ["libnsl.so.1"]="$(find_library 'libnsl.so')"
+    ["librt.so.1"]="$(find_library 'librt.so')"
+    ["libdl.so.2"]="$(find_library 'libdl.so')"
+    ["libpthread.so.0"]="$(find_library 'libpthread.so')"
+    ["libz.so.1"]="$(find_library 'libz.so')"
+    ["libicui18n.so.48"]="$(find_library 'libicui18n.so')"
+    ["libicuuc.so.48"]="$(find_library 'libicuuc.so')"
+    ["libicudata.so.48"]="$(find_library 'libicudata.so')"
+    ["libdispatch.so"]="$(find_library 'libdispatch.so')"
+    ["libm.so.6"]="$(find_library 'libm.so')"
+    ["libstdc++.so.6"]="$(find_library 'libstdc++.so')"
+    ["libgcc_s.so.1"]="$(find_library 'libgcc_s.so')"
+    ["libc.so.6"]="$(find_library 'libc.so')"
 )
 
 # Replace needed libraries with progress feedback
@@ -70,6 +190,10 @@ TOTAL_LIBS=${#LIBS[@]}
 COUNT=0
 
 for LIB in "${!LIBS[@]}"; do
+    if [ -z "${LIBS[$LIB]}" ]; then
+        echo "Failed to locate up-to-date matching library for $LIB"
+        exit 1
+    fi
     COUNT=$((COUNT+1))
     PERCENTAGE=$((COUNT * 100 / TOTAL_LIBS / 5))
     echo -n "Patching $LIB -> ${LIBS[$LIB]} "
@@ -96,6 +220,9 @@ EOF
 chmod +x run.sh
 
 echo -e "\nThe run.sh script has been created and made executable."
+
+# Refresh system library cache
+$ROOT ldconfig
 
 # Execute the help command
 ./blockheads_server171 --help
