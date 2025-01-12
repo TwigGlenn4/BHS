@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Grab the binary file
+curl -sL https://majicdave.com/share/blockheads_server171.tar.gz | tar 
+
 # Define variables
 FILE="blockheads_server171"
 declare -A LIBS=(
