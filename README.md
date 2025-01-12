@@ -7,7 +7,7 @@ This repository contains the server files for running a Blockheads multiplayer s
    
 ## Installation
 
-Follow the instructions below to install and set up the Blockheads server on your system.
+Follow the instructions below to install and set up the Blockheads server on your system (Deban/Ubuntu - APT based distros).
 
 ### Linux
 
