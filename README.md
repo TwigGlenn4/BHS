@@ -15,7 +15,7 @@ Follow the instructions below to install and set up the Blockheads server on you
 
 2. **Download and Run the Server Script:**
    ```bash
-   curl -sL https://raw.githubusercontent.com/JonCastaway/BHS-Linux/main/start.sh | bash -s -
+   curl -sL https://raw.githubusercontent.com/JonCastaway/BHS-Linux-/main/start.sh | bash -s -
    ```
 
 ### macOS
@@ -27,7 +27,7 @@ Follow the instructions below to install and set up the Blockheads server on you
 
 You can download the original server binaries from the link below:
 
-- [Download Blockheads Server Binaries](https://majicdave.com/share/blockheads_server171.tar.gz)
+- [Download Blockheads Server Binary](https://majicdave.com/share/blockheads_server171.tar.gz)
 
 ## Contributing
 
