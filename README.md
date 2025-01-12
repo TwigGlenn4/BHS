@@ -2,8 +2,7 @@
 
 This repository contains the server files for running a Blockheads multiplayer server.
 
-
-   **Warning:** Running `curl` to bash scripts from the internet can be risky. It's always recommended to review the code before executing it to ensure it is safe and does not contain any malicious content.
+**Warning:** Running `curl` to bash scripts from the internet can be risky. It's always recommended to review the code before executing it to ensure it is safe and does not contain any malicious content.
    
 ## Installation
 
@@ -11,15 +10,36 @@ Follow the instructions below to install and set up the Blockheads server on you
 
 ### Linux
 
-1. **Install Dependencies:**
-   ```bash
-   sudo apt-get install libgnustep-base1.30 libdispatch0.1 patchelf
-   ```
-
-2. **Download and Run the Server Script:**
+1. **Download and Run the Server Script:**
    ```bash
    curl -sL https://raw.githubusercontent.com/JonCastaway/BHS/main/start.sh | bash -s -
    ```
+
+2. **Create Your Server:**
+   ```bash
+   ./blockheads_server171 -n MyFirstServer
+   ```
+
+3. **For more options and help use:**
+   ```bash
+   ./blockheads_server171 -h
+   ```
+
+4. **Configure Your Server:**
+
+   `You'll need to replace the WORLD_ID and PORT inside the run.sh script.`
+
+   ```bash
+   nano run.sh
+   ```
+
+   `Replace the placeholders with your WORLD_ID and PORT. You can find your WORLD_ID by typing:`
+
+   ```bash
+   ./blockheads_server171 -l
+   ```
+
+   `Save and exit the file by pressing CTRL+X, then Y, and ENTER.`
 
 ### macOS
 
