@@ -107,9 +107,9 @@ If version 1.76 does not launch, try an earlier version such as 1.75 or 1.74
 
 - [Download The Original Blockheads Android APK v1.76 - Noodlecake](https://noodlecake.com/wp-content/uploads/2021/02/theblockheads1.7.6.apk)
   
-- [Download The Original Blockheads Android APK v1.76 - archive.org](https://archive.org/download/blockheads_android.apk)
-- [Download The Original Blockheads Android APK v1.75 - archive.org](https://archive.org/download/blockheads_android.apk)
-- [Download The Original Blockheads Android APK v1.74 - archive.org](https://archive.org/download/blockheads_android.apk)
+- [Download The Original Blockheads Android APK v1.76 - archive.org](https://archive.org/download/theblockheads1.7.6/theblockheads1.7.6.apk)
+- [Download The Original Blockheads Android APK v1.75 - archive.org](https://archive.org/download/theblockheads1.7.6/The%20Blockheads_1.7.5_APKPure.apk)
+- [Download The Original Blockheads Android APK v1.74 - archive.org](https://archive.org/download/theblockheads1.7.6/The%20Blockheads_1.7.4_APKPure.apk)
 
 ### 5. Contributing
 ![contributing](https://github.com/user-attachments/assets/5059e3bc-ea8c-4965-96c4-c6c500d0ba06)
