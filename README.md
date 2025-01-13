@@ -4,9 +4,13 @@
     <img alt="The Blockheads" src="https://github.com/user-attachments/assets/8f162932-0a4d-429d-9f3e-bd97d980e893">
   </a>
 </p>
+<h2 align="center">
+    For Debian, Ubuntu, MacOS and Arch Linux<sup style="font-size: 5px; margin-left: 5px; color: #ffffff;"> by the way!</sup>
+</h2>
 
-<div align="center">
-<h1 align="center">The Blockheads Game Server for Linux and MacOS</h3>
+
+
+
    
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
