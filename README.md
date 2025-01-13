@@ -20,8 +20,6 @@
 <br />
 <br />
 
-<a href="https://github.com/JonCastaway/BHS/wiki">Blockheads Wiki</a>
-·
 <a href="https://github.com/JonCastaway/BHS/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
 ·
 <a href="https://github.com/JonCastaway/BHS/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
@@ -31,16 +29,16 @@
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#1. Installation (Linux)">Linux Install</a></li>
-    <li><a href="#2. Installation (MacOS)">MacOS Install</a></li>
-    <li><a href="#3. Original Binaries (Manual Install)">Manual Install</a></li>
-    <li><a href="#4. Contributing">Contributing</a></li>
-    <li><a href="#5. License">License</a></li>
-    <li><a href="#6. Contact">Contact</a></li>
-  </ol>
-</details>
+<summary>Table of Contents</summary>
+<ol>
+    <li><a href="#1-installation-linux">Linux Install</a></li>
+    <li><a href="#2-installation-macos">MacOS Install</a></li>
+    <li><a href="#3-original-binaries-manual-install">Manual Install</a></li>
+    <li><a href="#4-contributing">Contributing</a></li>
+    <li><a href="#5-license">License</a></li>
+    <li><a href="#6-contact">Contact</a></li>
+</ol>
+
 
 # The Blockheads Game Server for Linux and MacOS
 
