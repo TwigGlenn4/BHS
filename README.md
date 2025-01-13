@@ -31,10 +31,10 @@
 <details>
 <summary>Table of Contents</summary>
 <ol>
-    <li><a href="#1-installation-linux">Linux Install</a></li>
-    <li><a href="#2-installation-macos">MacOS Install</a></li>
-    <li><a href="#3-original-binaries-manual-install">Manual Install</a></li>
-    <li><a href="#4-The-Blockheads-Android-APK">The Android Apps</a></li>
+    <li><a href="#1-installation-%7C-linux">Linux Install</a></li>
+    <li><a href="#2-installation-%7C-macos">MacOS Install</a></li>
+    <li><a href="#3-original-binaries-%7C-manual-install">Manual Install</a></li>
+    <li><a href="#4-The-Blockheads-%7C-Android-APK">The Android Apps</a></li>
     <li><a href="#5-contributing">Contributing</a></li>
     <li><a href="#6-license">License</a></li>
     <li><a href="#7-contact">Contact</a></li>
