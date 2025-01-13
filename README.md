@@ -121,8 +121,9 @@ For any questions or support, please reach out or open an issue on GitHub.
 [issues-url]: https://github.com/JonCastaway/BHS/issues
 
 ## 7. Acknowledgments
-
+<!-- - [NAME](URL) -->
 Projects we're inspired by and obtained valuable information:
-
--   [Wiki GG Blockheads](https://theblockheads.wiki.gg/wiki/The_Blockheads_Wiki)
--   [The Blockheads Fandom](https://theblockheads.fandom.com/wiki)
+-   [Discord | Sapiens](https://discord.gg/ZHwMWruM)
+-   [Reddit | r/blockheads](https://www.reddit.com/r/blockheads/)
+-   [Wiki GG | Blockheads](https://theblockheads.wiki.gg/wiki/The_Blockheads_Wiki)
+-   [Fandom | The Blockheads](https://theblockheads.fandom.com/wiki)
