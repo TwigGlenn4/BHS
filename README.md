@@ -37,6 +37,7 @@
     <li><a href="#4-contributing">Contributing</a></li>
     <li><a href="#5-license">License</a></li>
     <li><a href="#6-contact">Contact</a></li>
+    <li><a href="#7-Acknowledgments">Acknowledgments</a></li>
 </ol>
 
 
@@ -118,3 +119,10 @@ For any questions or support, please reach out or open an issue on GitHub.
 [stars-url]: https://github.com/JonCastaway/BHS/stargazers
 [issues-shield]: https://img.shields.io/github/issues/JonCastaway/BHS.svg?style=for-the-badge
 [issues-url]: https://github.com/JonCastaway/BHS/issues
+
+## 7. Acknowledgments
+
+Projects we're inspired by and obtained valuable information:
+
+-   [Wiki GG Blockheads](https://theblockheads.wiki.gg/wiki/The_Blockheads_Wiki)
+-   [The Blockheads Fandom](https://theblockheads.fandom.com/wiki)
