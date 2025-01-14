@@ -6,15 +6,55 @@
 </p>
 <div align="center">
 <h1 align="center">The Blockheads Game Server</h3>
+
+
+
+
+
+
+<div align="center">
+  <h2>
+    <a href="https://www.apple.com/macos/" target="_blank" rel="noopener noreferrer" title="MacOS" style="color: #000000;">
+      <img src="https://img.shields.io/badge/MacOS-999999.svg?logo=apple&logoColor=white" alt="MacOS">
+    </a>
+    <a href="https://www.debian.org/" target="_blank" rel="noopener noreferrer" title="Debian" style="color: #A81D33;">
+      <img src="https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white" alt="Debian">
+    </a>
+    <a href="https://ubuntu.com/" target="_blank" rel="noopener noreferrer" title="Ubuntu" style="color: #E95420;">
+      <img src="https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white" alt="Ubuntu">
+    </a>
+    <a href="https://archlinux.org/" target="_blank" rel="noopener noreferrer" title="Arch Linux" style="color: #1793D1;">
+      <img src="https://img.shields.io/badge/Arch%20Linux-1793D1.svg?logo=arch-linux&logoColor=white" alt="Arch Linux">
+    </a>
+    <a href="https://pop.system76.com/" target="_blank" rel="noopener noreferrer" title="Pop!_OS" style="color: #48B9C7;">
+      <img src="https://img.shields.io/badge/Pop!__OS-48B9C7.svg?logo=pop_os&logoColor=white" alt="Pop!_OS">
+    </a>
+    <a href="https://www.linuxmint.com/" target="_blank" rel="noopener noreferrer" title="Linux Mint" style="color: #87CF3E;">
+      <img src="https://img.shields.io/badge/Linux%20Mint-87CF3E.svg?logo=linux-mint&logoColor=white" alt="Linux Mint">
+    </a>
+    <a href="https://elementary.io/" target="_blank" rel="noopener noreferrer" title="elementary OS" style="color: #64BAFF;">
+      <img src="https://img.shields.io/badge/elementary%20OS-64BAFF.svg?logo=elementary&logoColor=white" alt="elementary OS">
+    </a>
+    <a href="https://www.kali.org/" target="_blank" rel="noopener noreferrer" title="Kali Linux" style="color: #557C94;">
+      <img src="https://img.shields.io/badge/Kali%20Linux-557C94.svg?logo=kali-linux&logoColor=white" alt="Kali Linux">
+    </a>
+  </h2>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
   
-<h2 align="center">
-    For MacOS, Debian, Ubuntu, other APT Linux distributions & Arch Linux<sup style="font-size: 5px; margin-left: 5px; color: #ffffff;"> by the way!</sup>
-</h2>
+</h3>
 
-
-
-
-   
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
