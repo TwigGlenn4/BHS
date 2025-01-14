@@ -6,12 +6,6 @@
 </p>
 <div align="center">
 <h1 align="center">The Blockheads Game Server</h3>
-
-
-
-
-
-
 <div align="center">
   <h2>
     <a href="https://www.apple.com/macos/" target="_blank" rel="noopener noreferrer" title="MacOS" style="color: #000000;">
