@@ -125,7 +125,7 @@ install_packages() {
     fi
     source /etc/os-release
     case $ID in
-        debian|ubuntu)
+        debian|ubuntu|pop)
             install_packages_debian
             ;;
         arch)
