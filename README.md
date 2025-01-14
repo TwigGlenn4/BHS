@@ -48,7 +48,7 @@
 <p align="center">This repository contains the server files for running a Blockheads multiplayer server.</p>
 <div align="left"><b>Warning:</b></div>
 <div align="left">Running curl to bash scripts from the internet can be risky. It's always recommended to review the code before executing it to ensure it is safe and does not contain any malicious content.</div><p></p>
-<a href="https://github.com/JonCastaway/BHS/wiki"><strong>Explore the Wiki »</strong></a>
+<a href="https://github.com/JonCastaway/BHS/wiki"><strong>Explore the Wiki</strong></a>
 <br />
 <br />
 
