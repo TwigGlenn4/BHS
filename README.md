@@ -5,9 +5,13 @@
   </a>
 </p>
 <div align="center">
-<h1 align="center">The Blockheads Game Server</h3>
+  <h1 align="center">The Blockheads Game Server
+  
+  [![CI Workflow](https://img.shields.io/github/actions/workflow/status/JonCastaway/BHS/cicd.yml?branch=main&label=CI&logo=github)](https://github.com/JonCastaway/BHS/actions/workflows/cicd.yml)
+
+</h3>
 <div align="center">
-  <h2>
+  <h2> 
     <a href="https://www.apple.com/macos/" target="_blank" rel="noopener noreferrer" title="MacOS" style="color: #000000;">
       <img src="https://img.shields.io/badge/MacOS-999999.svg?logo=apple&logoColor=white" alt="MacOS">
     </a>
