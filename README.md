@@ -78,6 +78,7 @@
 # The Blockheads Game Server for Linux and MacOS
 
 ## Getting Started
+
 ![GettingStarted](https://github.com/user-attachments/assets/181856ca-8597-43d3-97c4-cf13a99c924d)
 
 ### 1. Installation | Linux
@@ -139,14 +140,15 @@ If version 1.76 does not launch, try an earlier version such as 1.75 or 1.74
 
 ### 5. Roadmap
 
-See how we're tracking towards major [milestones](<[url](https://github.com/Joncastaway/BHS/milestones)>), and read the [wiki](https://github.com/Joncastaway/BHS/wiki/Roadmap) for details on each version. Here's a rough overview of some of the major features we're looking at:
+Exlore our advancement towards significant [milestones](<[url](https://github.com/Joncastaway/BHS/milestones)>), and delve into the [wiki](https://github.com/Joncastaway/BHS/wiki/Roadmap). Here's a general outline of some key features we're considering:
 
--   [ ] Web UI
+-   [ ] Web-based User Interface
 -   [ ] World Configuration Editor
 
-Also check the [open issues](https://github.com/Joncastaway/BHS/issues) for a full list of proposed features (and known issues).
+Additionally, review the [open issues](https://github.com/Joncastaway/BHS/issues) for a comprehensive list of suggested features (as well as known issues).
 
 ### 6. Contributing
+
 ![contributing](https://github.com/user-attachments/assets/5059e3bc-ea8c-4965-96c4-c6c500d0ba06)
 
 Contributions are welcome! Feel free to fork this repository and submit pull requests.
@@ -157,9 +159,11 @@ Contributions are welcome! Feel free to fork this repository and submit pull req
 </a>
 
 ### 7. License
+
 This project is Licensed under the GPL-3.0 License. See the [License](https://github.com/JonCastaway/BHS/blob/main/LICENCE) file for details.
 
 ### 8. Contact
+
 ![contact](https://github.com/user-attachments/assets/2b40e187-309b-4a58-be5f-fc71d045298a)
 
 For any questions or support, please reach out or open an issue on GitHub.
@@ -174,6 +178,7 @@ For any questions or support, please reach out or open an issue on GitHub.
 [issues-url]: https://github.com/JonCastaway/BHS/issues
 
 ### 9. Acknowledgments
+
 <!-- - [NAME](URL) --> Projects we're inspired by and obtained valuable information:
 
 -   [Majic Jungle | Dave Frampton](https://majicjungle.com)
