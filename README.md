@@ -166,6 +166,7 @@ For any questions or support, please reach out or open an issue on GitHub.
 ### 8. Acknowledgments
 <!-- - [NAME](URL) --> Projects we're inspired by and obtained valuable information:
 
+-   [Majic Jungle | Dave Frampton](https://majicjungle.com)
 -   [The Internet Archive](https://archive.org)
 -   [Discord | Sapiens](https://discord.gg/ZHwMWruM)
 -   [Reddit | r/blockheads](https://www.reddit.com/r/blockheads/)
