@@ -8,7 +8,6 @@ def check_server_status(url):
     except requests.RequestException:
         return False
 
-
 servers = [
     {"name": "The Black Swan", "url": "https://theblackswan.devon.social:5151/"},
     {"name": "Example Server", "url": "https://example.com:5050/"}
@@ -26,11 +25,11 @@ for server in servers:
 
 markdown_template += "\n</center>"
 
-# Save to Markdown file
-with open("servers_status.md", "w") as md_file:
+# Save to Markdown file named Server Status.md
+with open("Server Status.md", "w") as md_file:
     md_file.write(markdown_template)
 
 # This code would be part of your CI/CD pipeline
-os.system('git add servers_status.md')
+os.system('git add "Server Status.md"')
 os.system('git commit -m "Update server statuses"')
 os.system('git push origin main')
