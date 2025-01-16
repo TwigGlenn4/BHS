@@ -139,6 +139,7 @@ If version 1.76 does not launch, try an earlier version such as 1.75 or 1.74
 - [Download The Original Blockheads Android APK v1.74 - archive.org](https://archive.org/download/theblockheads1.7.6/The%20Blockheads_1.7.4_APKPure.apk)
 
 ### 5. Roadmap
+![roadmap](https://github.com/user-attachments/assets/9a17a313-51d8-49f5-9f0c-ada12de1ced5)
 
 Exlore our advancement towards significant [milestones](<[url](https://github.com/Joncastaway/BHS/milestones)>), and delve into the [wiki](https://github.com/Joncastaway/BHS/wiki/Roadmap). Here's a general outline of some key features we're considering:
 
