@@ -1,35 +1,33 @@
-import os
-import requests
+name: Update Server Status
+on:
+  schedule:
+    - cron: '0 * * * *' # This runs the script every hour
 
-def check_server_status(url):
-    try:
-        response = requests.get(url, timeout=10)
-        return response.status_code == 200
-    except requests.RequestException:
-        return False
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
 
-servers = [
-    {"name": "The Black Swan", "url": "https://theblackswan.devon.social:5151/"},
-    {"name": "Example Server", "url": "https://example.com:5050/"}
-]
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-markdown_template = """<center>
-| Server Name | URL | Port | Whitelist | Status |
-|-------------|-----|------|-----------|--------|
-"""
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
 
-for server in servers:
-    status_image = "online" if check_server_status(server["url"]) else "offline"
-    url_encoded = server['url'].replace(":", "%3A").replace("/", "%2F")
-    markdown_template += f'| {server["name"]} | [{server["url"].replace("https://", "").replace("/", "")}]({server["url"]}) | {server["url"].split(":")[1]} | No | <img src="https://img.shields.io/website?down_color=lightgrey&down_message={status_image}&style=flat-square&up_color=brightgreen&up_message=online&url={url_encoded}" alt="Server Status"> |\n'
+      - name: Run the status update script
+        run: |
+          python check_server_status.py
 
-markdown_template += "\n</center>"
-
-# Save to Markdown file named 'Server Status.md'
-with open("Server Status.md", "w") as md_file:
-    md_file.write(markdown_template)
-
-# This code would be part of your CI/CD pipeline
-os.system('git add "Server Status.md"')
-os.system('git commit -m "Update server statuses"')
-os.system('git push origin main')
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add "Server Status.md"
+          git commit -m "Update server statuses"
+          git push origin main
