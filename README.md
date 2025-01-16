@@ -59,21 +59,19 @@
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
 <details>
 <summary>Table of Contents</summary>
 <ol>
     <li><a href="#1-installation--linux">Linux Install</a></li>
     <li><a href="#2-installation--macos">MacOS Install</a></li>
     <li><a href="#3-original-binaries--manual-install">Manual Install</a></li>
-    <li><a href="#4-The-Blockheads--Android-APK">The Android Apps</a></li>
+    <li><a href="#4-the-blockheads--android-apk">The Android Apps</a></li>
     <li><a href="#5-roadmap">Roadmap</a></li>
     <li><a href="#6-contributing">Contributing</a></li>
     <li><a href="#7-license">License</a></li>
     <li><a href="#8-contact">Contact</a></li>
-    <li><a href="#9-Acknowledgments">Acknowledgments</a></li>
+    <li><a href="#9-acknowledgments">Acknowledgments</a></li>
 </ol>
-
 
 # The Blockheads Game Server for Linux and MacOS
 
@@ -144,8 +142,9 @@ If version 1.76 does not launch, try an earlier version such as 1.75 or 1.74
 
 Exlore our advancement towards significant [milestones](<[url](https://github.com/Joncastaway/BHS/milestones)>), and delve into the [wiki](https://github.com/Joncastaway/BHS/wiki/Roadmap). Here's a general outline of some key features we're considering:
 
--   [ ] Web-based User Interface
--   [ ] World Configuration Editor
+- [ ] [Current Active Servers](https://github.com/JonCastaway/BHS/wiki/Active-Servers)
+- [ ] World Configuration Editor
+- [ ] Web-based User Interface
 
 Additionally, review the [open issues](https://github.com/Joncastaway/BHS/issues) for a comprehensive list of suggested features (as well as known issues).
 
