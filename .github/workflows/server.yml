@@ -25,7 +25,7 @@ for server in servers:
 
 markdown_template += "\n</center>"
 
-# Save to Markdown file named Server Status.md
+# Save to Markdown file named 'Server Status.md'
 with open("Server Status.md", "w") as md_file:
     md_file.write(markdown_template)
 
