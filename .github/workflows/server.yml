@@ -31,3 +31,4 @@ jobs:
           git add "Server Status.md"
           git commit -m "Update server statuses"
           git push origin main
+          
