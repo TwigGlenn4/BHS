@@ -16,18 +16,14 @@ jobs:
 
     - name: Set up System Dependencies
       run: |
-        case ${{ matrix.os }} in
-          ubuntu-latest | debian | kali | linuxmint | popos | mx-linux | zorin | elementary)
-            sudo apt-get update && sudo apt-get install -y <list-of-dependencies>
-            ;;
-          manjaro)
-            sudo pacman -Syu --noconfirm
-            sudo pacman -S --noconfirm <list-of-dependencies>
-            ;;
-          macos-latest)
-            brew install <list-of-dependencies>
-            ;;
-        esac
+        if [[ "${{ matrix.os }}" == "ubuntu-latest" || "${{ matrix.os }}" == "debian" || "${{ matrix.os }}" == "kali" || "${{ matrix.os }}" == "linuxmint" || "${{ matrix.os }}" == "popos" || "${{ matrix.os }}" == "mx-linux" || "${{ matrix.os }}" == "zorin" || "${{ matrix.os }}" == "elementary" ]]; then
+          sudo apt-get update && sudo apt-get install -y <list-of-dependencies>
+        elif [[ "${{ matrix.os }}" == "manjaro" ]]; then
+          sudo pacman -Syu --noconfirm
+          sudo pacman -S --noconfirm <list-of-dependencies>
+        elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+          brew install <list-of-dependencies>
+        fi
 
     - name: Run start.sh
       run: sudo bash ./start.sh
