@@ -14,16 +14,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up System Dependencies
+    - name: Set up System Dependencies (APT-based Distros)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'debian' || matrix.os == 'kali' || matrix.os == 'linuxmint' || matrix.os == 'popos' || matrix.os == 'mx-linux' || matrix.os == 'zorin' || matrix.os == 'elementary'
+      run: sudo apt-get update && sudo apt-get install -y <list-of-dependencies>
+    
+    - name: Set up System Dependencies (Arch-based Distros)
+      if: matrix.os == 'manjaro'
       run: |
-        if [[ "${{ matrix.os }}" == "ubuntu-latest" || "${{ matrix.os }}" == "debian" || "${{ matrix.os }}" == "kali" || "${{ matrix.os }}" == "linuxmint" || "${{ matrix.os }}" == "popos" || "${{ matrix.os }}" == "mx-linux" || "${{ matrix.os }}" == "zorin" || "${{ matrix.os }}" == "elementary" ]]; then
-          sudo apt-get update && sudo apt-get install -y <list-of-dependencies>
-        elif [[ "${{ matrix.os }}" == "manjaro" ]]; then
-          sudo pacman -Syu --noconfirm
-          sudo pacman -S --noconfirm <list-of-dependencies>
-        elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-          brew install <list-of-dependencies>
-        fi
+        sudo pacman -Syu --noconfirm
+        sudo pacman -S --noconfirm <list-of-dependencies>
+    
+    - name: Set up System Dependencies (macOS)
+      if: matrix.os == 'macos-latest'
+      run: brew install <list-of-dependencies>
 
     - name: Run start.sh
       run: sudo bash ./start.sh
