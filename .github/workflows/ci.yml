@@ -18,7 +18,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'debian' || matrix.os == 'kali' || matrix.os == 'linuxmint' || matrix.os == 'popos' || matrix.os == 'mx-linux' || matrix.os == 'zorin' || matrix.os == 'elementary'
       run: |
         sudo apt-get update
-        sudo apt-get install -y git cmake ninja-build clang systemtap-sdt-dev libbsd-dev linux-libc-dev curl tar grep mawk patchelf libgnustep-base1.24 libobjc4 libgnutls30 libgcrypt20 libxml2 libffi7 libnsl2 zlib1g libicu-dev
+        sudo apt-get install -y git cmake ninja-build clang systemtap-sdt-dev libbsd-dev linux-libc-dev curl tar grep mawk patchelf libgnustep-base-dev libobjc4 libgnutls30 libgcrypt20 libxml2 libffi-dev libnsl2 zlib1g libicu-dev
 
     - name: Set up System Dependencies (Arch-based Distros)
       if: matrix.os == 'manjaro'
