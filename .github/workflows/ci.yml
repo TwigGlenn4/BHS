@@ -18,18 +18,18 @@ jobs:
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'debian' || matrix.os == 'kali' || matrix.os == 'linuxmint' || matrix.os == 'popos' || matrix.os == 'mx-linux' || matrix.os == 'zorin' || matrix.os == 'elementary'
       run: |
         sudo apt-get update
-        sudo apt-get install -y git cmake ninja-build clang systemtap-sdt-dev libbsd-dev linux-libc-dev curl tar grep mawk patchelf libgnustep-base-dev libobjc4 libgnutls30 libgcrypt20 libxml2 libffi-dev libnsl2 zlib1g libicu-dev
+        sudo apt-get install -y git cmake ninja-build clang systemtap-sdt-dev libbsd-dev linux-libc-dev curl tar grep mawk patchelf libgnustep-base-dev libobjc4 libgnutls30 libgcrypt20 libxml2 libffi-dev zlib1g libicu-dev
 
     - name: Set up System Dependencies (Arch-based Distros)
       if: matrix.os == 'manjaro'
       run: |
         sudo pacman -Syu --noconfirm
-        sudo pacman -S --noconfirm base-devel git cmake ninja clang systemtap libbsd curl tar grep gawk patchelf gnustep-base gcc-libs gnutls libgcrypt libxml2 libffi libnsl zlib icu libdispatch
+        sudo pacman -S --noconfirm base-devel git cmake ninja clang systemtap libbsd curl tar grep gawk patchelf gnustep-base gnutls libgcrypt libxml2 libffi zlib icu libdispatch
 
     - name: Set up System Dependencies (macOS)
       if: matrix.os == 'macos-latest'
       run: |
-        brew install git cmake gcc ninja llvm libbsd curl gnu-tar grep gawk patchelf gnustep-base gnutls libgcrypt libxml2 libffi libnsl zlib icu4c
+        brew install git cmake gcc ninja llvm libbsd curl gnu-tar grep gawk patchelf gnustep-base gnutls libgcrypt libxml2 libffi zlib icu4c
         echo 'export PATH="/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"' >> ~/.bash_profile
         echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/unwind -L/opt/homebrew/opt/llvm/lib/c++ -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/zlib/lib"' >> ~/.bash_profile
         echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include -I/opt/homebrew/opt/libxml2/include -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/zlib/include"' >> ~/.bash_profile
