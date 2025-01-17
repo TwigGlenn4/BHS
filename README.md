@@ -6,9 +6,6 @@
 </p>
 <div align="center">
   <h1 align="center">The Blockheads Game Server
-  
-  [![CI Workflow](https://img.shields.io/github/actions/workflow/status/JonCastaway/BHS/ci.yml?branch=main&label=Script&logo=github)](https://github.com/JonCastaway/BHS/actions/workflows/ci.yml)
-
 </h3>
 <div align="center">
   <h2> 
