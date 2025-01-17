@@ -28,7 +28,8 @@ jobs:
 
     - name: Set up System Dependencies (macOS)
       if: matrix.os == 'macos-latest'
-      run: brew install git cmake ninja clang systemtap libbsd curl tar grep gawk patchelf gnustep-base gcc-libs gnutls libgcrypt libxml2 libffi libnsl zlib icu libdispatch
+      run: |
+        brew install git cmake --formula ninja llvm systemtap libbsd curl tar grep gawk patchelf gnustep-base gcc-libs gnutls libgcrypt libxml2 libffi libnsl zlib icu libdispatch
 
     - name: Run start.sh
       run: sudo bash ./start.sh
