@@ -7,35 +7,30 @@
 <div align="center">
   <h1 align="center">The Blockheads Game Server
 </h3>
+
 <div align="center">
-  <h2> 
-    <a href="https://www.apple.com/macos/" target="_blank" rel="noopener noreferrer" title="MacOS" style="color: #000000;">
-      <img src="https://img.shields.io/badge/MacOS-999999.svg?logo=apple&logoColor=white" alt="MacOS">
-    </a>
-    <a href="https://www.debian.org/" target="_blank" rel="noopener noreferrer" title="Debian" style="color: #A81D33;">
-      <img src="https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white" alt="Debian">
-    </a>
-    <a href="https://ubuntu.com/" target="_blank" rel="noopener noreferrer" title="Ubuntu" style="color: #E95420;">
-      <img src="https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white" alt="Ubuntu">
-    </a>
-    <a href="https://archlinux.org/" target="_blank" rel="noopener noreferrer" title="Arch Linux" style="color: #1793D1;">
-      <img src="https://img.shields.io/badge/Arch%20Linux-1793D1.svg?logo=arch-linux&logoColor=white" alt="Arch Linux">
-    </a>
-    <a href="https://pop.system76.com/" target="_blank" rel="noopener noreferrer" title="Pop!_OS" style="color: #48B9C7;">
-      <img src="https://img.shields.io/badge/Pop!__OS-48B9C7.svg?logo=pop_os&logoColor=white" alt="Pop!_OS">
-    </a>
-    <a href="https://www.linuxmint.com/" target="_blank" rel="noopener noreferrer" title="Linux Mint" style="color: #87CF3E;">
-      <img src="https://img.shields.io/badge/Linux%20Mint-87CF3E.svg?logo=linux-mint&logoColor=white" alt="Linux Mint">
-    </a>
-    <a href="https://elementary.io/" target="_blank" rel="noopener noreferrer" title="elementary OS" style="color: #64BAFF;">
-      <img src="https://img.shields.io/badge/elementary%20OS-64BAFF.svg?logo=elementary&logoColor=white" alt="elementary OS">
-    </a>
-    <a href="https://www.kali.org/" target="_blank" rel="noopener noreferrer" title="Kali Linux" style="color: #557C94;">
-      <img src="https://img.shields.io/badge/Kali%20Linux-557C94.svg?logo=kali-linux&logoColor=white" alt="Kali Linux">
-    </a>
-  </h2>
-</div> 
-</h3>
+  <table>
+    <tr>
+      <td><a href="https://www.apple.com/macos/" target="_blank" rel="noopener noreferrer" title="MacOS" style="color: #000000;"><img src="https://img.shields.io/badge/MacOS-999999.svg?logo=apple&logoColor=white" alt="MacOS"></a></td>
+      <td><a href="https://www.debian.org/" target="_blank" rel="noopener noreferrer" title="Debian" style="color: #A81D33;"><img src="https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white" alt="Debian"></a></td>
+      <td><a href="https://ubuntu.com/" target="_blank" rel="noopener noreferrer" title="Ubuntu" style="color: #E95420;"><img src="https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white" alt="Ubuntu"></a></td>
+      <td><a href="https://archlinux.org/" target="_blank" rel="noopener noreferrer" title="Arch Linux" style="color: #1793D1;"><img src="https://img.shields.io/badge/Arch%20Linux-1793D1.svg?logo=arch-linux&logoColor=white" alt="Arch Linux"></a></td>
+      <td><a href="https://pop.system76.com/" target="_blank" rel="noopener noreferrer" title="Pop!_OS" style="color: #48B9C7;"><img src="https://img.shields.io/badge/Pop!__OS-48B9C7.svg?logo=pop_os&logoColor=white" alt="Pop!_OS"></a></td>
+       <td><a href="https://www.trisquel.info/" target="_blank" rel="noopener noreferrer" title="Trisquel" style="color: #23af34;"><img src="https://img.shields.io/badge/Trisquel-23af34.svg?logo=trisquel&logoColor=white" alt="Trisquel"></a></td>
+      <td><a href="https://www.linuxmint.com/" target="_blank" rel="noopener noreferrer" title="Linux Mint" style="color: #87CF3E;"><img src="https://img.shields.io/badge/Linux%20Mint-87CF3E.svg?logo=linux-mint&logoColor=white" alt="Linux Mint"></a></td>
+    </tr>
+    <tr>
+      <td><a href="https://zorin.com/" target="_blank" rel="noopener noreferrer" title="Zorin OS" style="color: #0CC1F3;"><img src="https://img.shields.io/badge/Zorin%20OS-0CC1F3.svg?logo=zorin&logoColor=white" alt="Zorin OS"></a></td>
+      <td><a href="https://elementary.io/" target="_blank" rel="noopener noreferrer" title="elementary OS" style="color: #64BAFF;"><img src="https://img.shields.io/badge/elementary%20OS-64BAFF.svg?logo=elementary&logoColor=white" alt="elementary OS"></a></td>
+      <td><a href="https://www.kali.org/" target="_blank" rel="noopener noreferrer" title="Kali Linux" style="color: #557C94;"><img src="https://img.shields.io/badge/Kali%20Linux-557C94.svg?logo=kali-linux&logoColor=white" alt="Kali Linux"></a></td>
+      <td><a href="https://tails.boum.org/" target="_blank" rel="noopener noreferrer" title="Tails" style="color: #563F8A;"><img src="https://img.shields.io/badge/Tails-563F8A.svg?logo=tails&logoColor=white" alt="Tails Linux"></a></td>
+      <td><a href="https://mxlinux.org/" target="_blank" rel="noopener noreferrer" title="MX Linux" style="color: #1E7B6E;"><img src="https://img.shields.io/badge/MX%20Linux-1E7B6E.svg?logo=mx-linux&logoColor=white" alt="MX Linux"></a></td>
+      <td><a href="https://www.devuan.org/" target="_blank" rel="noopener noreferrer" title="Devuan" style="color: #648C8A;"><img src="https://img.shields.io/badge/Devuan-648C8A.svg?logo=devuan&logoColor=white" alt="Devuan"></a></td>
+      <td><a href="https://bunsenlabs.org/" target="_blank" rel="noopener noreferrer" title="BunsenLabs" style="color: #254c59;"><img src="https://img.shields.io/badge/BunsenLabs-254c59.svg?logo=bunsenlabs&logoColor=white" alt="BunsenLabs"></a></td>
+    </tr>
+  </table>
+</div>
+
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
