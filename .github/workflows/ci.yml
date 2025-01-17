@@ -16,17 +16,19 @@ jobs:
 
     - name: Set up System Dependencies (APT-based Distros)
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'debian' || matrix.os == 'kali' || matrix.os == 'linuxmint' || matrix.os == 'popos' || matrix.os == 'mx-linux' || matrix.os == 'zorin' || matrix.os == 'elementary'
-      run: sudo apt-get update && sudo apt-get install -y <list-of-dependencies>
-    
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git cmake ninja-build clang systemtap-sdt-dev libbsd-dev linux-libc-dev curl tar grep mawk patchelf libgnustep-base1.24 libobjc4 libgnutls30 libgcrypt20 libxml2 libffi7 libnsl2 zlib1g libicu-dev
+
     - name: Set up System Dependencies (Arch-based Distros)
       if: matrix.os == 'manjaro'
       run: |
         sudo pacman -Syu --noconfirm
-        sudo pacman -S --noconfirm <list-of-dependencies>
-    
+        sudo pacman -S --noconfirm base-devel git cmake ninja clang systemtap libbsd curl tar grep gawk patchelf gnustep-base gcc-libs gnutls libgcrypt libxml2 libffi libnsl zlib icu libdispatch
+
     - name: Set up System Dependencies (macOS)
       if: matrix.os == 'macos-latest'
-      run: brew install <list-of-dependencies>
+      run: brew install git cmake ninja clang systemtap libbsd curl tar grep gawk patchelf gnustep-base gcc-libs gnutls libgcrypt libxml2 libffi libnsl zlib icu libdispatch
 
     - name: Run start.sh
       run: sudo bash ./start.sh
