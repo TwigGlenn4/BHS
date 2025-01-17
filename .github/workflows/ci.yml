@@ -30,13 +30,11 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: |
         brew install git cmake gcc ninja llvm libbsd curl gnu-tar grep gawk patchelf gnustep-base gnutls libgcrypt libxml2 libffi libnsl zlib icu4c
-        echo 'export PATH="/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"' >> $HOME/.bash_profile
-        export PATH="/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
-        export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/unwind -L/opt/homebrew/opt/llvm/lib/c++ -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/zlib/lib"
-        export CPPFLAGS="-I/opt/homebrew/opt/llvm/include -I/opt/homebrew/opt/libxml2/include -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/zlib/include"
-        export PKG_CONFIG_PATH="/opt/homebrew/opt/libxml2/lib/pkgconfig:/opt/homebrew/opt/libffi/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig"
+        echo 'export PATH="/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"' >> ~/.bash_profile
+        echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/unwind -L/opt/homebrew/opt/llvm/lib/c++ -L/opt/homebrew/opt/libxml2/lib -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/zlib/lib"' >> ~/.bash_profile
+        echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include -I/opt/homebrew/opt/libxml2/include -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/zlib/include"' >> ~/.bash_profile
+        echo 'export PKG_CONFIG_PATH="/opt/homebrew/opt/libxml2/lib/pkgconfig:/opt/homebrew/opt/libffi/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig"' >> ~/.bash_profile
+        source ~/.bash_profile
 
     - name: Run start.sh
-      run: |
-        source $HOME/.bash_profile
-        sudo bash ./start.sh
+      run: sudo bash ./start.sh
