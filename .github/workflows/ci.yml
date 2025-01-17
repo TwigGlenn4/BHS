@@ -30,6 +30,10 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: |
         brew install git cmake --formula ninja llvm libbsd curl gnu-tar grep gawk patchelf gnustep-base gcc gnutls libgcrypt libxml2 libffi libnsl zlib icu4c
+        echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> $HOME/.bash_profile
+        export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/unwind -L/opt/homebrew/opt/llvm/lib/c++"
+        export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+        export PKG_CONFIG_PATH="/opt/homebrew/opt/libxml2/lib/pkgconfig:/opt/homebrew/opt/libffi/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig"
 
     - name: Run start.sh
       run: sudo bash ./start.sh
