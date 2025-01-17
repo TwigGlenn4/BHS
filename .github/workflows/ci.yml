@@ -1,0 +1,33 @@
+name: Test start.sh
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, debian, kali, linuxmint, popos, mx-linux, zorin, elementary, manjaro, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up System Dependencies
+      run: |
+        case ${{ matrix.os }} in
+          ubuntu-latest | debian | kali | linuxmint | popos | mx-linux | zorin | elementary)
+            sudo apt-get update && sudo apt-get install -y <list-of-dependencies>
+            ;;
+          manjaro)
+            sudo pacman -Syu --noconfirm
+            sudo pacman -S --noconfirm <list-of-dependencies>
+            ;;
+          macos-latest)
+            brew install <list-of-dependencies>
+            ;;
+        esac
+
+    - name: Run start.sh
+      run: sudo bash ./start.sh
