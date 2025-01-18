@@ -1,8 +1,4 @@
-- theblackswan.devon.social: offline/online
-- thegreenswan.devon.social: offline/online
-- thegreyswan.devon.social: offline/online
-- thewhiteswan.devon.social: offline/online
-
+{{SERVER_STATUS}}
 
 <a id="readme-top"></a>
 <p align="center">
