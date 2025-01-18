@@ -2,6 +2,7 @@ import csv
 import socket
 import os
 import datetime
+import geocode
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
@@ -13,7 +14,7 @@ def check_udp_port(hostname, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.settimeout(2)
         sock.sendto(b'', (hostname, port))
-        sock.recvfrom(1024)  # Try to receive data
+        sock.recvfrom(1024)
         sock.close()
         return True
     except Exception as e:
