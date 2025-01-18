@@ -26,14 +26,19 @@ jobs:
 
       - name: Check out the wiki
         run: |
-          git clone https://github.com/${{ github.repository }}.wiki.git wiki-repo
+          git clone https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki-repo
 
       - name: Move the status file to the wiki
         run: |
           mv Server_Status.md wiki-repo/
 
       - name: Commit and push changes to the wiki
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git -C wiki-repo add Server_Status.md
-          git -C wiki-repo commit -m "Update server status"
-          git -C wiki-repo push https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.wiki.git
+          cd wiki-repo
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add Server_Status.md
+          git commit -m "Update server status"
+          git push https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.wiki.git
