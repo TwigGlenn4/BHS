@@ -1,1 +1,4 @@
-
+SERVER NAME,SERVER ADDRESS/IP,SERVER PORT,WORLD SIZE, RULES
+The Black Swan,theblackswan.devon.social,5151,x1,Survival
+The Green Swan,thegreenswan.devon.social,5151,x4,expert
+The Grey Swan,thegreyswan.devon.social,5151,x16,survival
