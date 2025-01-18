@@ -6,7 +6,7 @@ on:
 
 jobs:
   update-status:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Specifying the runner version to ensure compatibility
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -14,7 +14,7 @@ jobs:
       - name: Clone Wiki repository
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/JonCastaway/BHS.wiki.git wiki
+        run: git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/your-username/my-repo.wiki.git wiki
 
       - name: Set up Python
         uses: actions/setup-python@v2
