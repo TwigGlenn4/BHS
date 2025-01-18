@@ -1,12 +1,6 @@
-name: Update Wiki with Server Status
-on:
-  schedule:
-    - cron: '0 * * * *' #
-  workflow_dispatch:
-
 jobs:
   update-status:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -24,39 +18,22 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests geopy
+          pip install requests geopy  # Ensure geopy is installed
 
       - name: Run the status update script
         run: python .github/check_server_status.py
 
-      - name: Change directory to wiki
-        run: cd wiki
-
-      - name: Set Git user config
-        run: |
-          git config user.name 'github-actions'
-          git config user.email 'github-actions@github.com'
-
-      - name: Check for changes
-        run: git status
-
-      - name: Add changes if any
-        run: |
-          if [ -f Servers.md ]; then
-            git add Servers.md
-          fi
-
-      - name: Commit changes if any
-        run: |
-          if [ -f Servers.md ] && [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Update Wiki with server status"
-          else
-            echo "No changes to commit."
-
-      - name: Push changes if any
+      - name: Conditional Commit and Push
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          if [ -f Servers.md ] && [ -n "$(git status --porcelain)" ]; then
+          cd wiki
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+          if [ -n "$(git status --porcelain)" ]; then
+            git add Servers.md
+            git commit -m "Update Wiki with server status"
             git push origin master
+          else
+            echo "No changes to commit."
           fi
