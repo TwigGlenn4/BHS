@@ -1,7 +1,7 @@
 name: Update README with Server Status
 on:
   schedule:
-    - cron: '0 * * * *' # This runs the script every hour
+    - cron: '0 * * * *' # Runs script every hour
   workflow_dispatch: # Allows manual trigger
 
 jobs:
