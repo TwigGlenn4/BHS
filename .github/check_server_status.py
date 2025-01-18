@@ -32,11 +32,11 @@ def generate_server_status(servers):
     status_lines = []
 
     for server in servers:
-        is_online, ping_time = check_port(server["SERVER ADDRESS/IP"], int(server["SERVER PORT"]))
+        is_online, ping_time = check_port(server["ADDRESS/IP"], int(server["PORT"]))
         status = "🟢 Online" if is_online else "🔴 Offline"
         ping_display = f"{ping_time:.2f} ms" if ping_time else "N/A"
         status_lines.append(
-            f"<tr><td>{server['SERVER NAME']}</td><td>{server['SERVER ADDRESS/IP']}</td><td>{server['SERVER PORT']}</td><td>{server['WORLD SIZE']}</td><td>{server['RULES']}</td><td>{status}</td><td>{ping_display}</td></tr>"
+            f"<tr><td>{server['NAME']}</td><td>{server['ADDRESS/IP']}</td><td>{server['PORT']}</td><td>{server['SIZE']}</td><td>{server['RULES']}</td><td>{status}</td><td>{ping_display}</td></tr>"
         )
 
     return "".join(status_lines)  # Combine without joining using newlines
@@ -57,20 +57,18 @@ def update_wiki(servers, wiki_file):
 
     if new_status != previous_status:
         os.makedirs(os.path.dirname(wiki_file), exist_ok=True)  # Ensure directory exists
-        content = f"""# Blockhead Servers
-
-Welcome to the Blockhead Server List. Here you'll find the current status of our servers:
+        content = f"""# Server List
 
 <table>
   <thead>
     <tr>
-      <th>SERVER NAME</th>
-      <th>SERVER ADDRESS/IP</th>
-      <th>SERVER PORT</th>
-      <th>WORLD SIZE</th>
+      <th>NAME</th>
+      <th>ADDRESS/IP</th>
+      <th>PORT</th>
+      <th>SIZE</th>
       <th>RULES</th>
       <th>STATUS</th>
-      <th>PING TIME</th>
+      <th>PING</th>
     </tr>
   </thead>
   <tbody>
