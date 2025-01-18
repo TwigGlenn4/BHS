@@ -23,18 +23,18 @@ def update_readme(readme_file, servers):
     with open(readme_file, "r") as file:
         content = file.read()
 
-    status_lines = [
+    server_status_table = [
         "| SERVER NAME     | SERVER ADDRESS/IP        | SERVER PORT | WORLD SIZE | RULES     | STATUS    |",
-        "|-----------------|--------------------------|-------------|------------|-----------|-----------|"
+        "|-----------------|--------------------------|-------------|------------|-----------|-----------|",
     ]
 
     for server in servers:
         status = "🟢 Online" if check_port(server["SERVER ADDRESS/IP"], int(server["SERVER PORT"])) else "🔴 Offline"
-        status_lines.append(
+        server_status_table.append(
             f"| {server['SERVER NAME']} | {server['SERVER ADDRESS/IP']} | {server['SERVER PORT']} | {server['WORLD SIZE']} | {server['RULES']} | {status} |"
         )
 
-    new_content = content.replace("{{SERVER_STATUS}}", "\n".join(status_lines))
+    new_content = content.replace("{{SERVER_STATUS}}", "\n".join(server_status_table))
 
     with open(readme_file, "w") as file:
         file.write(new_content)
