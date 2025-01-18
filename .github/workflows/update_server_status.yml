@@ -32,4 +32,5 @@ jobs:
           git config --global user.email 'github-actions@github.com'
           git add "Server_Status.md"
           git commit -m "Update server statuses"
-          git push "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git" main
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin main
