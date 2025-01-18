@@ -1,5 +1,6 @@
 import csv
 import socket
+import os
 
 csv_file = ".github/servers.csv"
 readme_file = "README.md"
