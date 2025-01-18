@@ -1,7 +1,7 @@
 import csv
 import socket
 import os
-import time
+import datetime
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
@@ -47,7 +47,7 @@ def generate_server_status(servers):
             f"</tr>"
         )
 
-    return "\n".join(status_lines)
+    return "".join(status_lines)  # Combine without joining using newlines
 
 def read_previous_status(wiki_file):
     """Read the previous server status from the wiki file."""
