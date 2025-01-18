@@ -1,15 +1,18 @@
 import csv
 import socket
-import os
 
 csv_file = ".github/servers.csv"
 readme_file = "README.md"
 
 def check_port(hostname, port):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        sock.settimeout(2)
-        result = sock.connect_ex((hostname, port))
-        return result == 0
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(2)
+            result = sock.connect_ex((hostname, port))
+            return result == 0
+    except socket.gaierror as e:
+        print(f"Error connecting to {hostname} on port {port}: {e}")
+        return False
 
 def read_servers(csv_file):
     servers = []
