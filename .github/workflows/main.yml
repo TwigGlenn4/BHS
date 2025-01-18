@@ -1,3 +1,9 @@
+name: Update Wiki with Server Status
+on:
+  schedule:
+    - cron: '0 * * * *' # This runs the script every hour
+  workflow_dispatch: # Allows manual trigger
+
 jobs:
   update-status:
     runs-on: ubuntu-24.04
@@ -23,13 +29,11 @@ jobs:
       - name: Run the status update script
         run: python .github/check_server_status.py
 
-      - name: Conditional Commit and Push
+      - name: Commit changes if any
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           cd wiki
-          git config user.name 'github-actions'
-          git config user.email 'github-actions@github.com'
           if [ -n "$(git status --porcelain)" ]; then
             git add Servers.md
             git commit -m "Update Wiki with server status"
