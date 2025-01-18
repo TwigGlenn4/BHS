@@ -33,5 +33,5 @@ jobs:
           git config --global user.email 'github-actions@github.com'
           git add "README.md"
           git commit -m "Update README with server status"
-          git remote set-url origin https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
           git push origin main
