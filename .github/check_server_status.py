@@ -1,7 +1,7 @@
 import csv
 import socket
 import os
-import datetime
+import time
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
@@ -49,11 +49,6 @@ def generate_server_status(servers):
 
     return "\n".join(status_lines)
 
-def format_datetime():
-    """Format the current datetime to a specific string format."""
-    dt = datetime.datetime.now(datetime.timezone.utc)
-    return dt.strftime("%A, the %dth day of %B %Y at %H:%M:%S")
-
 def read_previous_status(wiki_file):
     """Read the previous server status from the wiki file."""
     if not os.path.exists(wiki_file):
@@ -67,13 +62,12 @@ def update_wiki(servers, wiki_file):
     """Update the wiki page with the current server statuses."""
     new_status = generate_server_status(servers)
     previous_status = read_previous_status(wiki_file)
-    last_updated = format_datetime()
 
     if new_status != previous_status:
         os.makedirs(os.path.dirname(wiki_file), exist_ok=True)  # Ensure directory exists
         content = f"""# Blockhead Servers
 
-Welcome to the Blockhead Server List. Here you'll find the current status of our servers, last updated on **{last_updated}**:
+Welcome to the Blockhead Server List. Here you'll find the current status of our servers:
 
 <table>
   <thead>
