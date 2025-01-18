@@ -55,10 +55,10 @@ def calculate_uptime(hostname):
                 if row[2] == "online":
                     online_checks += 1
 
-    if total checks == 0:
+    if total_checks == 0:
         return 0
 
-    uptime_percentage = (online_checks / total checks) * 100
+    uptime_percentage = (online_checks / total_checks) * 100
     return uptime_percentage
 
 def generate_server_status(servers):
