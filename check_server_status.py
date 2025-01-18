@@ -1,36 +1,37 @@
-import socket
-import os
+name: Update README with Server Status
+on:
+  schedule:
+    - cron: '0 * * * *' # This runs the script every hour
+  workflow_dispatch: # Allows manual trigger
 
-index_file = "servers.txt"
-readme_file = "README.md"
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
 
-def check_port(hostname, port):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        sock.settimeout(2)
-        result = sock.connect_ex((hostname, port))
-        return result == 0
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-def read_servers(index_file):
-    servers = []
-    with open(index_file, "r") as f:
-        for line in f:
-            parts = line.strip().split()
-            if len(parts) == 2:
-                servers.append((parts[0], int(parts[1])))
-    return servers
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
 
-def update_readme(readme_file, server_statuses):
-    with open(readme_file, "r") as f:
-        content = f.read()
-    
-    status_lines = "\n".join([f"{server[0]} port {server[1]} {'🟢 Open' if status else '🔴 Closed'}" for server, status in server_statuses])
-    new_content = content.replace("{{SERVER_STATUS}}", status_lines)
+      - name: Run the status update script
+        run: |
+          python check_server_status.py
 
-    with open(readme_file, "w") as f:
-        f.write(new_content)
-
-if __name__ == "__main__":
-    servers = read_servers(index_file)
-    server_statuses = [(server, check_port(server[0], server[1])) for server in servers]
-    update_readme(readme_file, server_statuses)
-    print("Server statuses updated.")
+      - name: Commit and push changes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add "README.md"
+          git commit -m "Update README with server status"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+          git push https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
