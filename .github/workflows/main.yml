@@ -23,7 +23,7 @@ jobs:
 
       - name: Run the status update script
         run: |
-          python scripts/check_server_status.py
+          python .github/check_server_status.py
 
       - name: Commit and push changes
         env:
