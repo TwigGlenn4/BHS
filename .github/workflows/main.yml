@@ -1,8 +1,8 @@
 name: Update Wiki with Server Status
 on:
   schedule:
-    - cron: '0 * * * *' # This runs the script every hour
-  workflow_dispatch: # Allows manual trigger
+    - cron: '0 * * * *' #
+  workflow_dispatch:
 
 jobs:
   update-status:
@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests geopy  # Ensure geopy is installed
+          pip install requests geopy
 
       - name: Run the status update script
         run: python .github/check_server_status.py
