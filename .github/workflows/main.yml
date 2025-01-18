@@ -1,7 +1,7 @@
-name: Update README with Server Status
+name: Update Wiki with Server Status
 on:
   schedule:
-    - cron: '0 * * * *' # Runs script every hour
+    - cron: '0 * * * *' # This runs the script every hour
   workflow_dispatch: # Allows manual trigger
 
 jobs:
@@ -31,6 +31,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add README.md
-          git commit -m "Update README with server status"
+          git add "wiki/Servers.md"
+          git commit -m "Update Wiki with server status"
           git push origin main
