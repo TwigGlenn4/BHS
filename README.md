@@ -1,3 +1,6 @@
+- {{SERVER_STATUS}}
+
+
 <a id="readme-top"></a>
 <p align="center">
   <a href="https://theblockheads.net">
