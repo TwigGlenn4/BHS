@@ -1,8 +1,7 @@
 import csv
 import socket
 import os
-import time
-from datetime import datetime
+import datetime
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
@@ -52,7 +51,7 @@ def generate_server_status(servers):
 
 def format_datetime():
     """Format the current datetime to a specific string format."""
-    dt = datetime.utcnow()
+    dt = datetime.datetime.now(datetime.timezone.utc)
     return dt.strftime("%A, the %dth day of %B %Y at %H:%M:%S")
 
 def read_previous_status(wiki_file):
@@ -71,16 +70,12 @@ def update_wiki(servers, wiki_file):
     last_updated = format_datetime()
 
     if new_status != previous_status:
+        os.makedirs(os.path.dirname(wiki_file), exist_ok=True)  # Ensure directory exists
         content = f"""# Blockhead Servers
 
-Welcome to the Blockhead Server List. Here you'll find the current status of our servers, last updated on:
-<div id="last-updated"></div>
+Welcome to the Blockhead Server List. Here you'll find the current status of our servers, last updated on **{last_updated}**:
 
-<button onclick="sortTable(0)">Sort by Name 🠕</button>
-<button onclick="sortTable(1)">Sort by Status 🠕</button>
-<button id="toggle-sort" onclick="toggleSortOrder()">Switch to Z-A</button>
-
-<table id="servers-table">
+<table>
   <thead>
     <tr>
       <th>SERVER NAME</th>
@@ -96,34 +91,6 @@ Welcome to the Blockhead Server List. Here you'll find the current status of our
     {new_status}
   </tbody>
 </table>
-
-<script>
-  let sortOrder = 'asc';
-
-  function sortTable(n) {{
-    const table = document.getElementById("servers-table");
-    let rows = Array.prototype.slice.call(table.tBodies[0].rows);
-
-    rows.sort((a, b) => {{
-      let x = a.cells[n].innerText.toLowerCase();
-      let y = b.cells[n].innerText.toLowerCase();
-      if (x < y) {{ return sortOrder==='asc' ? -1 : 1; }}
-      if (x > y) {{ return sortOrder==='asc' ? 1 : -1; }}
-      return 0;
-    }});
-
-    rows.forEach(row => table.tBodies[0].appendChild(row));
-  }}
-
-  function toggleSortOrder() {{
-    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-    document.getElementById('toggle-sort').innerText = sortOrder === 'asc' ? 'Switch to Z-A' : 'Switch to A-Z';
-  }}
-
-  const lastUpdatedUTC = "{last_updated} UTC";
-  const lastUpdatedDate = new Date(lastUpdatedUTC + ' UTC');
-  document.getElementById('last-updated').innerText = lastUpdatedDate.toLocaleString();
-</script>
 
 <style>
   table {{
@@ -148,7 +115,6 @@ Welcome to the Blockhead Server List. Here you'll find the current status of our
         with open(wiki_file, "w") as file:
             file.write(content)
         print("Server statuses updated in wiki.")
-        # Commit and push changes here if needed
     else:
         print("No changes in server statuses. Wiki not updated.")
 
