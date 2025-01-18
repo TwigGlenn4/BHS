@@ -1,22 +1,29 @@
 import csv
 import socket
 import os
-import time
+import datetime  # Directly imported datetime
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
 
-def check_port(hostname, port):
-    """Check if a specific port is open on a given hostname and return ping time if open."""
+def check_udp_port(hostname, port):
+    """Check if a specific UDP port is open on a given hostname."""
     try:
-        with socket.create_connection((hostname, port), timeout=2) as conn:
-            start_time = time.time()
-            conn.send(b'')
-            ping_time = (time.time() - start_time) * 1000  # Convert to milliseconds
-            return True, ping_time
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.settimeout(2)
+        sock.sendto(b'', (hostname, port))
+        start_time = datetime.datetime.now()
+        
+        sock.recvfrom(1024)  # Try to receive data
+        ping_time = (datetime.datetime.now() - start_time).total_seconds() * 1000  # Convert to milliseconds
+        sock.close()
+        return True, ping_time
+    except socket.timeout:
+        sock.close()
+        return True, None  # If it's a timeout, it might still be open
     except Exception as e:
-        print(f"Error connecting to {hostname} on port {port}: {e}")
-        return False, None
+        print(f"Error with {hostname} on UDP port {port}: {e}")
+        return False, None  # Other exceptions mean it's probably closed
 
 def read_servers(csv_file):
     """Read server details from a CSV file and return them as a list of dictionaries."""
@@ -32,7 +39,7 @@ def generate_server_status(servers):
     status_lines = []
 
     for server in servers:
-        is_online, ping_time = check_port(server["ADDRESS/IP"], int(server["PORT"]))
+        is_online, ping_time = check_udp_port(server["ADDRESS/IP"], int(server["PORT"]))
         status = "🟢 Online" if is_online else "🔴 Offline"
         ping_display = f"{ping_time:.2f} ms" if ping_time else "N/A"
         status_lines.append(
@@ -75,27 +82,7 @@ def update_wiki(servers, wiki_file):
     {new_status}
   </tbody>
 </table>
-
-<style>
-  table {{
-    width: 100%;
-    border-collapse: collapse;
-  }}
-  th, td {{
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }}
-  th {{
-    background-color: #f2f2f2;
-  }}
-  tr:nth-child(even) {{
-    background-color: #f9f9f9;
-  }}
-  tr:hover {{
-    background-color: #f1f1f1;
-  }}
-</style>"""
+"""
         with open(wiki_file, "w") as file:
             file.write(content)
         print("Server statuses updated in wiki.")
