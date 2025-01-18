@@ -1,7 +1,7 @@
 import csv
 import socket
 import os
-import datetime
+import time
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
@@ -36,15 +36,7 @@ def generate_server_status(servers):
         status = "🟢 Online" if is_online else "🔴 Offline"
         ping_display = f"{ping_time:.2f} ms" if ping_time else "N/A"
         status_lines.append(
-            f"<tr>"
-            f"<td>{server['SERVER NAME']}</td>"
-            f"<td>{server['SERVER ADDRESS/IP']}</td>"
-            f"<td>{server['SERVER PORT']}</td>"
-            f"<td>{server['WORLD SIZE']}</td>"
-            f"<td>{server['RULES']}</td>"
-            f"<td>{status}</td>"
-            f"<td>{ping_display}</td>"
-            f"</tr>"
+            f"<tr><td>{server['SERVER NAME']}</td><td>{server['SERVER ADDRESS/IP']}</td><td>{server['SERVER PORT']}</td><td>{server['WORLD SIZE']}</td><td>{server['RULES']}</td><td>{status}</td><td>{ping_display}</td></tr>"
         )
 
     return "".join(status_lines)  # Combine without joining using newlines
