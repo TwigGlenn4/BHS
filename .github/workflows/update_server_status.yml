@@ -24,13 +24,16 @@ jobs:
         run: |
           python check_server_status.py
 
-      - name: Commit and push changes
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Check out the wiki
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add "Server_Status.md"
-          git commit -m "Update server statuses"
-          git remote set-url origin https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin main
+          git clone https://github.com/${{ github.repository }}.wiki.git wiki-repo
+
+      - name: Move the status file to the wiki
+        run: |
+          mv Server_Status.md wiki-repo/
+
+      - name: Commit and push changes to the wiki
+        run: |
+          git -C wiki-repo add Server_Status.md
+          git -C wiki-repo commit -m "Update server status"
+          git -C wiki-repo push https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.wiki.git
