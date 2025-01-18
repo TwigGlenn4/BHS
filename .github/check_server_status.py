@@ -35,7 +35,7 @@ def read_servers(csv_file):
 def log_status(hostname, status):
     """Log the server status to a CSV file."""
     timestamp = datetime.datetime.utcnow().isoformat()
-    with open(log_file, "a") as file, newline='') as file:
+    with open(log_file, "a", newline='') as file:
         writer = csv.writer(file)
         writer.writerow([timestamp, hostname, status])
 
@@ -55,10 +55,10 @@ def calculate_uptime(hostname):
                 if row[2] == "online":
                     online_checks += 1
 
-    if total_checks == 0:
+    if total checks == 0:
         return 0
 
-    uptime_percentage = (online_checks / total_checks) * 100
+    uptime_percentage = (online_checks / total checks) * 100
     return uptime_percentage
 
 def generate_server_status(servers):
