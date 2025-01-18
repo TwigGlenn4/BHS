@@ -24,6 +24,9 @@ jobs:
         run: |
           python scripts/check_server_status.py
 
+      - name: Output GH_TOKEN
+        run: echo "${{ secrets.GH_TOKEN }}" # removes this line after verifying the token is correct
+
       - name: Commit and push changes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
