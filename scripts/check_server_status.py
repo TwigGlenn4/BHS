@@ -23,7 +23,7 @@ def read_servers(csv_file):
             servers.append(row)
     return servers
 
-def update_wiki(wiki_file, servers):
+def generate_server_status(servers):
     status_lines = [
         "| SERVER NAME     | SERVER ADDRESS/IP        | SERVER PORT | WORLD SIZE | RULES     | STATUS      |",
         "|-----------------|--------------------------|-------------|------------|-----------|-------------|"
@@ -35,12 +35,28 @@ def update_wiki(wiki_file, servers):
             f"| {server['SERVER NAME']} | {server['SERVER ADDRESS/IP']} | {server['SERVER PORT']} | {server['WORLD SIZE']} | {server['RULES']} | {status} |"
         )
 
-    content = "\n".join(status_lines)
+    return "\n".join(status_lines)
 
-    with open(wiki_file, "w") as file:
-        file.write(content)
+def read_previous_status(wiki_file):
+    if not os.path.exists(wiki_file):
+        return ""
+    
+    with open(wiki_file, "r") as file:
+        content = file.read()
+        return content
+
+def update_wiki(servers, wiki_file):
+    new_status = generate_server_status(servers)
+    previous_status = read_previous_status(wiki_file)
+
+    if new_status != previous_status:
+        with open(wiki_file, "w") as file:
+            file.write(new_status)
+        print("Server statuses updated in wiki.")
+        # Commit and push changes here if needed
+    else:
+        print("No changes in server statuses. Wiki not updated.")
 
 if __name__ == "__main__":
     servers = read_servers(csv_file)
-    update_wiki(wiki_file, servers)
-    print("Server statuses updated.")
+    update_wiki(servers, wiki_file)
