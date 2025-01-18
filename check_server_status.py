@@ -1,9 +1,8 @@
 import socket
 import os
 
-hostname = "theblackswan.devon.social
-port = 5151
-status_file = "Server_Status.md"
+index_file = "servers.txt"
+readme_file = "README.md"
 
 def check_port(hostname, port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -11,23 +10,27 @@ def check_port(hostname, port):
         result = sock.connect_ex((hostname, port))
         return result == 0
 
-def get_current_status(status_file):
-    if not os.path.exists(status_file):
-        return None
-    with open(status_file, "r") as f:
-        content = f.read().strip()
-        return "🟢 Online" if "🟢 Online" in content else "🔴 Offline"
+def read_servers(index_file):
+    servers = []
+    with open(index_file, "r") as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) == 2:
+                servers.append((parts[0], int(parts[1])))
+    return servers
 
-def update_status_file(status_file, status_indicator):
-    with open(status_file, "w") as f:
-        f.write(f"## Server Status\n\n- {status_indicator}\n")
+def update_readme(readme_file, server_statuses):
+    with open(readme_file, "r") as f:
+        content = f.read()
+    
+    status_lines = "\n".join([f"{server[0]} port {server[1]} {'🟢 Open' if status else '🔴 Closed'}" for server, status in server_statuses])
+    new_content = content.replace("{{SERVER_STATUS}}", status_lines)
+
+    with open(readme_file, "w") as f:
+        f.write(new_content)
 
 if __name__ == "__main__":
-    current_status = get_current_status(status_file)
-    new_status = "🟢 Online" if check_port(hostname, port) else "🔴 Offline"
-
-    if current_status != new_status:
-        update_status_file(status_file, new_status)
-        print(f"Status changed to {new_status}. File updated.")
-    else:
-        print("Status unchanged. No update needed.")
+    servers = read_servers(index_file)
+    server_statuses = [(server, check_port(server[0], server[1])) for server in servers]
+    update_readme(readme_file, server_statuses)
+    print("Server statuses updated.")
