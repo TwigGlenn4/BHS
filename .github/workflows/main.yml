@@ -6,7 +6,7 @@ on:
 
 jobs:
   update-status:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -36,6 +36,7 @@ jobs:
           cd wiki
           git config user.name 'github-actions'
           git config user.email 'github-actions@github.com'
+          git status
           if [ -n "$(git status --porcelain)" ]; then
             git add Servers.md
             git commit -m "Update Wiki with server status"
