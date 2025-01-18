@@ -1,6 +1,5 @@
 import csv
 import socket
-import os
 
 csv_file = ".github/servers.csv"
 readme_file = "README.md"
@@ -24,14 +23,14 @@ def update_readme(readme_file, servers):
         content = file.read()
 
     status_lines = [
-        "| SERVER NAME     | SERVER ADDRESS/IP        | SERVER PORT | STATUS    |",
-        "|-----------------|--------------------------|-------------|-----------|"
+        "| SERVER NAME     | SERVER ADDRESS/IP        | SERVER PORT | WORLD SIZE | RULES     | STATUS      |",
+        "|-----------------|--------------------------|-------------|------------|-----------|-------------|"
     ]
 
     for server in servers:
         status = "🟢 Open" if check_port(server["SERVER ADDRESS/IP"], int(server["SERVER PORT"])) else "🔴 Closed"
         status_lines.append(
-            f"| {server['SERVER NAME']} | {server['SERVER ADDRESS/IP']} | {server['SERVER PORT']} | {status} |"
+            f"| {server['SERVER NAME']} | {server['SERVER ADDRESS/IP']} | {server['SERVER PORT']} | {server['WORLD SIZE']} | {server['RULES']} | {status} |"
         )
 
     new_content = content.replace("{{SERVER_STATUS}}", "\n".join(status_lines))
