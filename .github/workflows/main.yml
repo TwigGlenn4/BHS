@@ -6,15 +6,15 @@ on:
 
 jobs:
   update-status:
-    runs-on: ubuntu-24.04  # Specifying the runner version to ensure compatibility
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
-      
+
       - name: Clone Wiki repository
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/JonCastaway/BHS.wiki.git wiki
+        run: git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/your-username/my-repo.wiki.git wiki
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install requests geopy  # Ensure geopy is installed
 
       - name: Run the status update script
         run: python .github/check_server_status.py
