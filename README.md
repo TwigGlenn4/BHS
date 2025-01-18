@@ -1,9 +1,3 @@
-| SERVER NAME     | SERVER ADDRESS/IP        | SERVER PORT | WORLD SIZE | RULES     | STATUS      |
-|-----------------|--------------------------|-------------|------------|-----------|-------------|
-| The Black Swan | theblackswan.devon.social | 5151 | x1 | Survival | 🔴 Closed |
-| The Green Swan | thegreenswan.devon.social | 5151 | x4 | Expert | 🔴 Closed |
-| The Grey Swan | thegreyswan.devon.social | 5151 | x16 | Survival | 🔴 Closed |
-
 <a id="readme-top"></a>
 <p align="center">
   <a href="https://theblockheads.net">
