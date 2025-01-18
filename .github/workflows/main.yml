@@ -1,7 +1,7 @@
 name: Update README with Server Status
 on:
   schedule:
-    - cron: '0 * * * *' # Runs script every hour
+    - cron: '0 * * * *' # This runs the script every hour
   workflow_dispatch: # Allows manual trigger
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Run the status update script
         run: |
-          python check_server_status.py
+          python scripts/check_server_status.py
 
       - name: Commit and push changes
         env:
