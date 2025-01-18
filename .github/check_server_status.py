@@ -2,11 +2,13 @@ import csv
 import socket
 import os
 import datetime
-import geocode
+from geopy.geocoders import Nominatim
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
 log_file = ".github/uptime_log.csv"
+
+geolocator = Nominatim(user_agent="server-status-checker")
 
 def check_udp_port(hostname, port):
     """Check if a specific UDP port is open on a given hostname."""
