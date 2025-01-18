@@ -35,7 +35,7 @@ def read_servers(csv_file):
 def log_status(hostname, status):
     """Log the server status to a CSV file."""
     timestamp = datetime.datetime.utcnow().isoformat()
-    with open(log_file, "a") as file:
+    with open(log_file, "a") as file, newline='') as file:
         writer = csv.writer(file)
         writer.writerow([timestamp, hostname, status])
 
