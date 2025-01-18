@@ -61,6 +61,7 @@ def calculate_uptime(hostname):
 def generate_server_status(servers):
     """Generate the server status table as a string."""
     status_lines = []
+    server_statuses = []
 
     for server in servers:
         is_online = check_udp_port(server["ADDRESS/IP"], int(server["PORT"]))
@@ -68,10 +69,24 @@ def generate_server_status(servers):
         display_status = "🟢 Online" if is_online else "🔴 Offline"
         country_code, flag_emoji = get_country_and_flag(server["ADDRESS/IP"])
         uptime = calculate_uptime(server["ADDRESS/IP"])
-        status_lines.append(
-            f"<tr><td>{server['NAME']}</td><td>{server['ADDRESS/IP']}</td><td>{server['PORT']}</td><td>{server['SIZE']}</td><td>{server['RULES']}</td><td>{display_status}</td><td>{flag_emoji} {country_code}</td><td>{uptime:.2f}%</td></tr>"
-        )
+        server_statuses.append({
+            'NAME': server['NAME'],
+            'ADDRESS/IP': server['ADDRESS/IP'],
+            'PORT': server['PORT'],
+            'SIZE': server['SIZE'],
+            'RULES': server['RULES'],
+            'STATUS': display_status,
+            'COUNTRY': f"{flag_emoji} {country_code}",
+            'UPTIME': uptime
+        })
         log_status(server["ADDRESS/IP"], status)
+
+    sorted_server_statuses = sorted(server_statuses, key=lambda x: x['UPTIME'], reverse=True)
+
+    for server in sorted_server_statuses:
+        status_lines.append(
+            f"<tr><td>{server['NAME']}</td><td>{server['ADDRESS/IP']}</td><td>{server['PORT']}</td><td>{server['SIZE']}</td><td>{server['RULES']}</td><td>{server['STATUS']}</td><td>{server['COUNTRY']}</td><td>{server['UPTIME']:.2f}%</td></tr>"
+        )
 
     return "".join(status_lines)
 
