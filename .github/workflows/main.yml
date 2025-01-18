@@ -29,21 +29,17 @@ jobs:
       - name: Run the status update script
         run: python .github/check_server_status.py
 
-      - name: Check for changes
-        id: changes
-        run: |
-          if [ -z "$(git -C wiki status --porcelain)" ]; then
-            touch wiki/noop.txt
-            git -C wiki add wiki/noop.txt
-          fi
-
-      - name: Commit and push changes
+      - name: Commit changes if any
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           cd wiki
           git config user.name 'github-actions'
           git config user.email 'github-actions@github.com'
-          git add Servers.md
-          git commit -m "Update Wiki with server status"
-          git push origin master
+          if [ -n "$(git status --porcelain)" ]; then
+            git add Servers.md
+            git commit -m "Update Wiki with server status"
+            git push origin master
+          else
+            echo "No changes to commit."
+          fi
