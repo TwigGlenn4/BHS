@@ -1,12 +1,11 @@
 import csv
 import socket
 import os
-from geopy.geocoders import Nominatim
+import datetime
 
 csv_file = ".github/servers.csv"
 wiki_file = "wiki/Servers.md"
-
-geolocator = Nominatim(user_agent="server-check")
+log_file = ".github/uptime_log.csv"
 
 def check_udp_port(hostname, port):
     """Check if a specific UDP port is open on a given hostname."""
@@ -21,6 +20,61 @@ def check_udp_port(hostname, port):
         print(f"Error with {hostname} on UDP port {port}: {e}")
         return False
 
+def read_servers(csv_file):
+    """Read server details from a CSV file and return them as a list of dictionaries."""
+    servers = []
+    with open(csv_file, "r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            servers.append(row)
+    return servers
+
+def log_status(hostname, status):
+    """Log the server status to a CSV file."""
+    timestamp = datetime.datetime.utcnow().isoformat()
+    with open(log_file, "a") as file:
+        writer = csv.writer(file)
+        writer.writerow([timestamp, hostname, status])
+
+def calculate_uptime(hostname):
+    """Calculate the uptime percentage for a server."""
+    total_checks = 0
+    online_checks = 0
+
+    if not os.path.exists(log_file):
+        return 0
+
+    with open(log_file, "r") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row[1] == hostname:
+                total_checks += 1
+                if row[2] == "online":
+                    online_checks += 1
+
+    if total_checks == 0:
+        return 0
+
+    uptime_percentage = (online_checks / total_checks) * 100
+    return uptime_percentage
+
+def generate_server_status(servers):
+    """Generate the server status table as a string."""
+    status_lines = []
+
+    for server in servers:
+        is_online = check_udp_port(server["ADDRESS/IP"], int(server["PORT"]))
+        status = "online" if is_online else "offline"
+        display_status = "🟢 Online" if is_online else "🔴 Offline"
+        country_code, flag_emoji = get_country_and_flag(server["ADDRESS/IP"])
+        uptime = calculate_uptime(server["ADDRESS/IP"])
+        status_lines.append(
+            f"<tr><td>{server['NAME']}</td><td>{server['ADDRESS/IP']}</td><td>{server['PORT']}</td><td>{server['SIZE']}</td><td>{server['RULES']}</td><td>{display_status}</td><td>{flag_emoji} {country_code}</td><td>{uptime:.2f}%</td></tr>"
+        )
+        log_status(server["ADDRESS/IP"], status)
+
+    return "".join(status_lines)
+
 def get_country_and_flag(ip_or_hostname):
     """Get the country and flag emoji for a given IP address or hostname."""
     try:
@@ -34,29 +88,6 @@ def get_country_and_flag(ip_or_hostname):
     except Exception as e:
         print(f"Error resolving {ip_or_hostname}: {e}")
         return "Unknown", ""
-
-def read_servers(csv_file):
-    """Read server details from a CSV file and return them as a list of dictionaries."""
-    servers = []
-    with open(csv_file, "r") as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            servers.append(row)
-    return servers
-
-def generate_server_status(servers):
-    """Generate the server status table as a string."""
-    status_lines = []
-
-    for server in servers:
-        is_online = check_udp_port(server["ADDRESS/IP"], int(server["PORT"]))
-        status = "🟢 Online" if is_online else "🔴 Offline"
-        country_code, flag_emoji = get_country_and_flag(server["ADDRESS/IP"])
-        status_lines.append(
-            f"<tr><td>{server['NAME']}</td><td>{server['ADDRESS/IP']}</td><td>{server['PORT']}</td><td>{server['SIZE']}</td><td>{server['RULES']}</td><td>{status}</td><td>{flag_emoji} {country_code}</td></tr>"
-        )
-
-    return "".join(status_lines)  # Combine without joining using newlines
 
 def read_previous_status(wiki_file):
     """Read the previous server status from the wiki file."""
@@ -86,6 +117,7 @@ def update_wiki(servers, wiki_file):
       <th>RULES</th>
       <th>STATUS</th>
       <th>COUNTRY</th>
+      <th>UPTIME</th>
     </tr>
   </thead>
   <tbody>
