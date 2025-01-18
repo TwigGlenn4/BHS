@@ -1,8 +1,9 @@
 import csv
 import socket
+import os
 
 csv_file = ".github/servers.csv"
-readme_file = "README.md"
+wiki_file = "wiki/Servers.md"
 
 def check_port(hostname, port):
     try:
@@ -22,10 +23,7 @@ def read_servers(csv_file):
             servers.append(row)
     return servers
 
-def update_readme(readme_file, servers):
-    with open(readme_file, "r") as file:
-        content = file.read()
-
+def update_wiki(wiki_file, servers):
     status_lines = [
         "| SERVER NAME     | SERVER ADDRESS/IP        | SERVER PORT | WORLD SIZE | RULES     | STATUS      |",
         "|-----------------|--------------------------|-------------|------------|-----------|-------------|"
@@ -37,12 +35,12 @@ def update_readme(readme_file, servers):
             f"| {server['SERVER NAME']} | {server['SERVER ADDRESS/IP']} | {server['SERVER PORT']} | {server['WORLD SIZE']} | {server['RULES']} | {status} |"
         )
 
-    new_content = content.replace("{{SERVER_STATUS}}", "\n".join(status_lines))
+    content = "\n".join(status_lines)
 
-    with open(readme_file, "w") as file:
-        file.write(new_content)
+    with open(wiki_file, "w") as file:
+        file.write(content)
 
 if __name__ == "__main__":
     servers = read_servers(csv_file)
-    update_readme(readme_file, servers)
+    update_wiki(wiki_file, servers)
     print("Server statuses updated.")
