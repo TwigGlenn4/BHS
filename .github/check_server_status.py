@@ -76,7 +76,11 @@ def update_wiki(servers, wiki_file):
 Welcome to the Blockhead Server List. Here you'll find the current status of our servers, last updated on:
 <div id="last-updated"></div>
 
-<table>
+<button onclick="sortTable(0)">Sort by Name 🠕</button>
+<button onclick="sortTable(1)">Sort by Status 🠕</button>
+<button id="toggle-sort" onclick="toggleSortOrder()">Switch to Z-A</button>
+
+<table id="servers-table">
   <thead>
     <tr>
       <th>SERVER NAME</th>
@@ -94,6 +98,28 @@ Welcome to the Blockhead Server List. Here you'll find the current status of our
 </table>
 
 <script>
+  let sortOrder = 'asc';
+
+  function sortTable(n) {
+    const table = document.getElementById("servers-table");
+    let rows = Array.prototype.slice.call(table.tBodies[0].rows);
+
+    rows.sort((a, b) => {
+      let x = a.cells[n].innerText.toLowerCase();
+      let y = b.cells[n].innerText.toLowerCase();
+      if (x < y) { return sortOrder==='asc' ? -1 : 1; }
+      if (x > y) { return sortOrder==='asc' ? 1 : -1; }
+      return 0;
+    });
+
+    rows.forEach(row => table.tBodies[0].appendChild(row));
+  }
+
+  function toggleSortOrder() {
+    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    document.getElementById('toggle-sort').innerText = sortOrder === 'asc' ? 'Switch to Z-A' : 'Switch to A-Z';
+  }
+
   const lastUpdatedUTC = "{last_updated} UTC";
   const lastUpdatedDate = new Date(lastUpdatedUTC + ' UTC');
   document.getElementById('last-updated').innerText = lastUpdatedDate.toLocaleString();
