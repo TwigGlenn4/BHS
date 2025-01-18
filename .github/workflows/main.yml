@@ -42,13 +42,13 @@ jobs:
 
       - name: Add changes if any
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          if [ -f Servers.md ]; then
             git add Servers.md
           fi
 
       - name: Commit changes if any
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          if [ -f Servers.md ] && [ -n "$(git status --porcelain)" ]; then
             git commit -m "Update Wiki with server status"
           else
             echo "No changes to commit."
@@ -57,6 +57,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          if [ -f Servers.md ] && [ -n "$(git status --porcelain)" ]; then
             git push origin master
           fi
