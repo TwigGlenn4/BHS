@@ -2,7 +2,7 @@ import csv
 import socket
 import os
 
-csv_file = "data/servers.csv"
+csv_file = ".github/servers.csv"
 readme_file = "README.md"
 
 def check_port(hostname, port):
@@ -23,12 +23,21 @@ def update_readme(readme_file, servers):
     with open(readme_file, "r") as file:
         content = file.read()
 
+    status_lines = [
+        "| SERVER NAME     | SERVER ADDRESS/IP        | SERVER PORT | WORLD SIZE | RULES     | STATUS    |",
+        "|-----------------|--------------------------|-------------|------------|-----------|-----------|"
+    ]
+
     for server in servers:
         status = "🟢 Online" if check_port(server["SERVER ADDRESS/IP"], int(server["SERVER PORT"])) else "🔴 Offline"
-        content = content.replace("Loading...", status, 1)
+        status_lines.append(
+            f"| {server['SERVER NAME']} | {server['SERVER ADDRESS/IP']} | {server['SERVER PORT']} | {server['WORLD SIZE']} | {server['RULES']} | {status} |"
+        )
+
+    new_content = content.replace("{{SERVER_STATUS}}", "\n".join(status_lines))
 
     with open(readme_file, "w") as file:
-        file.write(content)
+        file.write(new_content)
 
 if __name__ == "__main__":
     servers = read_servers(csv_file)
