@@ -29,6 +29,9 @@ jobs:
       - name: Run the status update script
         run: python .github/check_server_status.py
 
+      - name: Touch a timestamp file
+        run: touch wiki/Servers.md
+
       - name: Commit and push changes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
