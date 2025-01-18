@@ -1,7 +1,8 @@
 name: Update README with Server Status
 on:
   schedule:
-    - cron: '0 * * * *' # This runs the script every hour
+    - cron: '0 * * * *' # Runs script every hour
+  workflow_dispatch: # Allows manual trigger
 
 jobs:
   update-status:
@@ -33,4 +34,4 @@ jobs:
           git add "README.md"
           git commit -m "Update README with server status"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin main
+          git push https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
