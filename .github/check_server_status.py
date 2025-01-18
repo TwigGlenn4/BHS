@@ -100,25 +100,25 @@ Welcome to the Blockhead Server List. Here you'll find the current status of our
 <script>
   let sortOrder = 'asc';
 
-  function sortTable(n) {
+  function sortTable(n) {{
     const table = document.getElementById("servers-table");
     let rows = Array.prototype.slice.call(table.tBodies[0].rows);
 
-    rows.sort((a, b) => {
+    rows.sort((a, b) => {{
       let x = a.cells[n].innerText.toLowerCase();
       let y = b.cells[n].innerText.toLowerCase();
-      if (x < y) { return sortOrder==='asc' ? -1 : 1; }
-      if (x > y) { return sortOrder==='asc' ? 1 : -1; }
+      if (x < y) {{ return sortOrder==='asc' ? -1 : 1; }}
+      if (x > y) {{ return sortOrder==='asc' ? 1 : -1; }}
       return 0;
-    });
+    }});
 
     rows.forEach(row => table.tBodies[0].appendChild(row));
-  }
+  }}
 
-  function toggleSortOrder() {
+  function toggleSortOrder() {{
     sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
     document.getElementById('toggle-sort').innerText = sortOrder === 'asc' ? 'Switch to Z-A' : 'Switch to A-Z';
-  }
+  }}
 
   const lastUpdatedUTC = "{last_updated} UTC";
   const lastUpdatedDate = new Date(lastUpdatedUTC + ' UTC');
