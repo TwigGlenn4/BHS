@@ -12,7 +12,9 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Clone Wiki repository
-        run: git clone https://github.com/your-username/my-repo.wiki.git wiki
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/your-username/my-repo.wiki.git wiki
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -36,4 +38,4 @@ jobs:
           git config user.email 'github-actions@github.com'
           git add Servers.md
           git commit -m "Update Wiki with server status"
-          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/your-username/my-repo.wiki.git
+          git push origin master
