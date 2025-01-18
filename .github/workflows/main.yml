@@ -29,8 +29,13 @@ jobs:
       - name: Run the status update script
         run: python .github/check_server_status.py
 
-      - name: Touch a timestamp file
-        run: touch wiki/Servers.md
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -z "$(git -C wiki status --porcelain)" ]; then
+            touch wiki/noop.txt
+            git -C wiki add wiki/noop.txt
+          fi
 
       - name: Commit and push changes
         env:
