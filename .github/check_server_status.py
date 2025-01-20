@@ -14,11 +14,14 @@ def check_udp_port(hostname, port):
     """Check if a specific UDP port is open on a given hostname."""
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.settimeout(2)
-        sock.sendto(b'', (hostname, port))
+        sock.settimeout(5)  # Increased timeout to 5 seconds for better accuracy
+        sock.sendto(b'ping', (hostname, port))
         sock.recvfrom(1024)
         sock.close()
         return True
+    except socket.timeout:
+        print(f"Timeout with {hostname} on UDP port {port}")
+        return False
     except Exception as e:
         print(f"Error with {hostname} on UDP port {port}: {e}")
         return False
