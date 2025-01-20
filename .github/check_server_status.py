@@ -84,7 +84,7 @@ def generate_server_status(servers, packet_hex):
             'ADDRESS/IP': server['ADDRESS/IP'],
             'PORT': server['PORT'],
             'SIZE': server['SIZE'],
-            'RULES']: server['RULES'],
+            'RULES': server['RULES'],
             'STATUS': display_status,
             'COUNTRY': f"{flag_emoji} {country_code}",
             'UPTIME': uptime
