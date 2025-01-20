@@ -10,16 +10,29 @@ log_file = ".github/uptime_log.csv"
 
 geolocator = Nominatim(user_agent="server-status-checker")
 
-def check_udp_port(hostname, port, teapot_response):
-    """Check if a specific UDP port is open and returns '418 I'm a teapot'."""
+def check_udp_port(hostname, port):
+    """Check if a specific UDP port is open and inspect the response for status code 418."""
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.settimeout(5)
+        sock.settimeout(5)  # 5 seconds timeout
         sock.sendto(b'ping', (hostname, port))
-        data, _ = sock.recvfrom(1024)
-        sock.close()
-        return teapot_response in data
-    except (socket.timeout, Exception) as e:
+        
+        try:
+            data, _ = sock.recvfrom(1024)  # Buffer size is 1024 bytes
+            if b"418" in data:
+                print(f"Received '418 I'm a teapot' response from {hostname}")
+                sock.close()
+                return True  # Received a 418 response, server is online
+            else:
+                print(f"Received unexpected response from {hostname}: {data}")
+                sock.close()
+                return False
+        except socket.timeout:
+            print(f"No response from {hostname} on UDP port {port}")
+            sock.close()
+            return False
+
+    except Exception as e:
         print(f"Error with {hostname} on UDP port {port}: {e}")
         return False
 
@@ -63,12 +76,12 @@ def get_country_and_flag(ip_or_hostname):
         print(f"Error resolving {ip_or_hostname}: {e}")
         return "Unknown", ""
 
-def generate_server_status(servers, teapot_response):
+def generate_server_status(servers):
     """Generate the server status table as a string."""
     server_statuses = []
 
     for server in servers:
-        is_online = check_udp_port(server["ADDRESS/IP"], int(server["PORT"]), teapot_response)
+        is_online = check_udp_port(server["ADDRESS/IP"], int(server["PORT"]))
         status = "online" if is_online else "offline"
         display_status = "🟢 Online" if is_online else "🔴 Offline"
         country_code, flag_emoji = get_country_and_flag(server["ADDRESS/IP"])
@@ -101,9 +114,9 @@ def read_previous_status(wiki_file):
     with open(wiki_file, "r") as file:
         return file.read()
 
-def update_wiki(servers, wiki_file, teapot_response):
+def update_wiki(servers, wiki_file):
     """Update the wiki page with current server statuses."""
-    new_status = generate_server_status(servers, teapot_response)
+    new_status = generate_server_status(servers)
     previous_status = read_previous_status(wiki_file)
 
     if new_status != previous_status:
@@ -124,6 +137,5 @@ def update_wiki(servers, wiki_file, teapot_response):
 # Main Execution
 if __name__ == "__main__":
     servers = read_servers(csv_file)
-    teapot_response = b"418 I'm a teapot"
-    update_wiki(servers, wiki_file, teapot_response)
+    update_wiki(servers, wiki_file)
     print("Server statuses updated.")
