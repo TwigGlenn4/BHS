@@ -37,7 +37,7 @@ def read_servers(csv_file):
 
 def log_status(hostname, status):
     """Log the server status to a CSV file."""
-    timestamp = datetime.datetime.utcnow().isoformat()
+    timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()  # Updated to use timezone-aware UTC
     with open(log_file, "a", newline='') as file:
         writer = csv.writer(file)
         writer.writerow([timestamp, hostname, status])
@@ -120,7 +120,7 @@ def read_previous_status(wiki_file):
         return content
 
 def update_wiki(servers, wiki_file):
-    """Update the wiki page with the current server statuses."""
+    """Update the wiki page with current server statuses."""
     new_status = generate_server_status(servers)
     previous_status = read_previous_status(wiki_file)
 
