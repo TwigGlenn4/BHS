@@ -206,13 +206,23 @@ echo -e "\nThe BHS has been patched successfully!"
 # Create run.sh with the specified content
 cat <<EOF > run.sh
 #!/bin/bash
-
 world_id="83cad395edb8d0f1912fec89508d8a1d"
 server_port=15151
 
+# Function to safely shut down the server
+function shutdown {
+    echo "Shutting down the server..." | tee -a bhs-server-log.txt
+    pkill -SIGINT -f './blockheads_server171 -o' # Command to stop the server
+    exit 0
+}
+
+# Trap to handle script termination and execute the shutdown function
+trap shutdown SIGTERM SIGINT
+
 while true; do
-        ./blockheads_server171 -o "\$world_id" -p "\$server_port" >> \$HOME/GNUstep/Library/ApplicationSupport/TheBlockheads/saves/\$world_id/console.log 2>&1
-        sleep 1
+    ./blockheads_server171 --no-exit -o "$world_id" -p "$server_port" 2>&1 | tee -a bhs-server-log.txt
+    echo "Server restarted at $(date)" | tee -a bhs-server-log.txt
+    sleep 1
 done
 EOF
 
