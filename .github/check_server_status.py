@@ -18,7 +18,7 @@ def send_custom_ping(hostname, port, packet_hex):
         sock.settimeout(5)  # 5 seconds timeout
         custom_packet = binascii.unhexlify(packet_hex)
         sock.sendto(custom_packet, (hostname, port))
-        
+
         try:
             data, _ = sock.recvfrom(1024)  # Buffer size is 1024 bytes
             print(f"Received response from {hostname}: {data}")
@@ -28,7 +28,7 @@ def send_custom_ping(hostname, port, packet_hex):
             print(f"No response from {hostname} on UDP port {port}")
             sock.close()
             return False
-        
+
     except Exception as e:
         print(f"Error with {hostname} on UDP port {port}: {e}")
         return False
@@ -44,7 +44,7 @@ def read_servers(csv_file):
 
 def log_status(hostname, status):
     """Log the server status to a CSV file."""
-    timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()  
+    timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
     with open(log_file, "a", newline='') as file:
         writer = csv.writer(file)
         writer.writerow([timestamp, hostname, status])
@@ -78,13 +78,13 @@ def generate_server_status(servers, packet_hex):
         display_status = "🟢 Online" if is_online else "🔴 Offline"
         country_code, flag_emoji = get_country_and_flag(server["ADDRESS/IP"])
         uptime = calculate_uptime(server["ADDRESS/IP"])
-        
+
         server_statuses.append({
             'NAME': server['NAME'],
             'ADDRESS/IP': server['ADDRESS/IP'],
             'PORT': server['PORT'],
             'SIZE': server['SIZE'],
-            'RULES': server['RULES'],
+            'RULES']: server['RULES'],
             'STATUS': display_status,
             'COUNTRY': f"{flag_emoji} {country_code}",
             'UPTIME': uptime
@@ -118,7 +118,7 @@ def read_previous_status(wiki_file):
     """Read the previous server status from the wiki file."""
     if not os.path.exists(wiki_file):
         return ""
-    
+
     with open(wiki_file, "r") as file:
         return file.read()
 
@@ -127,7 +127,7 @@ def update_wiki(servers, wiki_file, packet_hex):
     new_status = generate_server_status(servers, packet_hex)
     previous_status = read_previous_status(wiki_file)
 
-    if new_status != previous_status):
+    if new_status != previous_status:
         os.makedirs(os.path.dirname(wiki_file), exist_ok=True)
         content = f"""# Server List
 
