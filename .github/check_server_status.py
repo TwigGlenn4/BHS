@@ -11,27 +11,28 @@ log_file = ".github/uptime_log.csv"
 geolocator = Nominatim(user_agent="server-status-checker")
 
 def check_udp_port(hostname, port):
-    """Check if a specific UDP port is open and returns status code 418."""
+    """Check if a specific UDP port is open and determine the server status."""
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.settimeout(5)
         sock.sendto(b'ping', (hostname, port))
         
         try:
-            data, _ = sock.recvfrom(1024)
+            data, _ = sock.recvfrom(1024)  # Buffer size is 1024 bytes
             sock.close()
-            
-            if b"418" in data:
-                print(f"Received '418 I'm a teapot' response from {hostname}")
-                return True
-            else:
-                print(f"Received unexpected response from {hostname}: {data}")
-                return False
+            return True  # Received any response, server is online
         
         except socket.timeout:
             print(f"No response from {hostname} on UDP port {port}")
             return False
-        
+
+    except socket.gaierror as e:
+        if e.errno == -2:  # Name or service not known
+            print(f"Name or service not known: {hostname}")
+            return False
+        else:
+            print(f"Error with {hostname} on UDP port {port}: {e}")
+            return False
     except Exception as e:
         print(f"Error with {hostname} on UDP port {port}: {e}")
         return False
