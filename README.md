@@ -105,6 +105,12 @@ nano run.sh
 
 `Save and exit the file by pressing CTRL+X, then Y, and ENTER.`
 
+`Start the server in the background
+
+ ```bash
+nohup ./start.sh &>/dev/null &
+ ``
+
 ### 2. Installation | MacOS
 
 Download the Blockheads Server App
