@@ -134,9 +134,10 @@ If version 1.76 does not launch, try an earlier version such as 1.75 or 1.74
 
 Exlore our advancement towards significant [milestones](<[url](https://github.com/Joncastaway/BHS/milestones)>), and delve into the [wiki](https://github.com/Joncastaway/BHS/wiki/Roadmap). Here's a general outline of some key features we're considering:
 
-- [ ] [Current Active Servers](https://github.com/JonCastaway/BHS/wiki/Active-Servers)
+- [ ] [Current Active Servers](https://github.com/JonCastaway/BHS/wiki/Active-Servers) (in test)
 - [ ] World Configuration Editor
 - [ ] Web-based User Interface
+- [ ] Docker file (in test)
 
 Additionally, review the [open issues](https://github.com/Joncastaway/BHS/issues) for a comprehensive list of suggested features (as well as known issues).
 
