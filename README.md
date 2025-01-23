@@ -53,8 +53,8 @@
 **You can test our Blockheads Server by using:**
 `theblackswan.devon.social` port `15151`
 
-**Check out other Blockhead Servers here:**<br>
-<a href="[https://github.com/JonCastaway/BHS/wiki](https://github.com/JonCastaway/BHS/wiki/Servers)"><strong>Blockhead Servers</strong></a>
+**Check out <a href="https://github.com/JonCastaway/BHS/wiki/Servers">
+<strong>other Blockhead Servers</strong></a>**
 
 <a href="https://github.com/JonCastaway/BHS/wiki"><strong>Explore the Wiki</strong></a>
 <br />
