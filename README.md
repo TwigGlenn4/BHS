@@ -36,6 +36,16 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 
+<!-- Badges -->
+[contributors-shield]: https://img.shields.io/github/contributors/JonCastaway/BHS.svg?style=for-the-badge
+[contributors-url]: https://github.com/JonCastaway/BHS/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/JonCastaway/BHS.svg?style=for-the-badge
+[forks-url]: https://github.com/JonCastaway/BHS/network/members
+[stars-shield]: https://img.shields.io/github/stars/JonCastaway/BHS.svg?style=for-the-badge
+[stars-url]: https://github.com/JonCastaway/BHS/stargazers
+[issues-shield]: https://img.shields.io/github/issues/JonCastaway/BHS.svg?style=for-the-badge
+[issues-url]: https://github.com/JonCastaway/BHS/issues
+
 <p align="center">This repository contains the server files for running a Blockheads multiplayer server.</p>
 <div align="left"><b>Warning:</b></div>
 <div align="left">Running curl to bash scripts from the internet can be risky. It's always recommended to review the code before executing it to ensure it is safe and does not contain any malicious content.</div><p></p>
