@@ -209,4 +209,4 @@ if [ "$START_SERVER" == "y" ]; then
 
     echo -e "\nYour Blockheads server is now running!"
     echo "Access it at: $IP_ADDRESS:$SERVER_PORT"
-    echo "To stop the server: Press Ctrl+C or use 'docker
+    echo "To stop the server: Press Ctrl+C
