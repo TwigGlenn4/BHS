@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Run the installation script
-RUN chmod +x ./start.sh
+RUN chmod +x ./Docker/Docker.sh
 
 # Execute the start script
-CMD ["./start.sh"]
+CMD ["./Docker/Docker.sh"]
