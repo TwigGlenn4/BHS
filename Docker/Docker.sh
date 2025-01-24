@@ -8,7 +8,6 @@ progress_bar() {
     printf "\r[%.*s%.*s] %d%%" $PROGRESS "$PROG_BAR" $((20-PROGRESS)) "$BLANK_BAR" $((PROGRESS*5))
 }
 
-
 # Function to find a library
 find_library() {
     SEARCH=$1
@@ -63,31 +62,6 @@ declare -a PACKAGES_DEBIAN=(
     'libgcc-s1'
 )
 
-declare -a PACKAGES_ARCH=(
-    'base-devel'
-    'git'
-    'cmake'
-    'ninja'
-    'clang'
-    'systemtap'
-    'libbsd'
-    'curl'
-    'tar'
-    'grep'
-    'gawk'
-    'patchelf'
-    'gnustep-base'
-    'gcc-libs'
-    'gnutls'
-    'libgcrypt'
-    'libxml2'
-    'libffi'
-    'libnsl'
-    'zlib'
-    'icu'
-    'libdispatch'
-)
-
 build_libdispatch() {
     if [ -d "${DIR}/swift-corelibs-libdispatch/build" ]; then
         rm -rf 'swift-corelibs-libdispatch'        
@@ -104,7 +78,7 @@ build_libdispatch() {
 }
 
 install_packages_debian() {
-    echo "Installing packages for Debian/Ubuntu..."
+    echo "Installing packages for Ubuntu..."
     $ROOT apt-get update || exit 1
     $ROOT apt-get install -y "${PACKAGES_DEBIAN[@]}" || exit 1
     if ! find_library 'libdispatch.so'; then
@@ -113,29 +87,8 @@ install_packages_debian() {
     fi
 }
 
-install_packages_arch() {
-    echo "Installing packages for Arch Linux..."
-    $ROOT pacman -Sy --noconfirm --needed "${PACKAGES_ARCH[@]}" || exit 1
-}
-
 install_packages() {
-    if [ ! -f /etc/os-release ]; then
-        echo "Could not detect the operating system because /etc/os-release does not exist."
-        exit 1
-    fi
-    source /etc/os-release
-    case $ID in
-        debian|ubuntu|pop)
-            install_packages_debian
-            ;;
-        arch)
-            install_packages_arch
-            ;;
-        *)
-            echo "Unsupported operating system: $ID"
-            exit 1
-            ;;
-    esac
+    install_packages_debian
 }
 
 install_packages
@@ -203,11 +156,25 @@ done
 
 echo -e "\nThe BHS has been patched successfully!"
 
+# Prompt the user for the Blockheads World name with default "New World"
+read -p "Enter the name of your Blockheads World [New World]: " WORLD_NAME
+WORLD_NAME=${WORLD_NAME:-"New World"}
+
+# Prompt the user for the server port with default 15151
+read -p "Enter the port for your Blockheads server [15151]: " SERVER_PORT
+SERVER_PORT=${SERVER_PORT:-15151}
+
+# Check if the port is within the valid range
+if ! [[ "$SERVER_PORT" =~ ^[0-9]+$ ]] || [ "$SERVER_PORT" -lt 1 ] || [ "$SERVER_PORT" -gt 65535 ]; then
+    echo "Invalid port number. Please enter a port between 1 and 65535."
+    exit 1
+fi
+
 # Create run.sh with the specified content
 cat <<EOF > run.sh
 #!/bin/bash
 world_id="83cad395edb8d0f1912fec89508d8a1d"
-server_port=15151
+server_port=$SERVER_PORT
 
 # Function to safely shut down the server
 function shutdown {
@@ -221,7 +188,7 @@ trap shutdown SIGTERM SIGINT
 
 while true; do
     ./blockheads_server171 --no-exit -o "$world_id" -p "$server_port" 2>&1 | tee -a bhs-server-log.txt
-    echo "Server restarted at $(date)" | tee -a bhs-server-log.txt
+    echo "Server restarted at \$(date)" | tee -a bhs-server-log.txt
     sleep 1
 done
 EOF
@@ -231,8 +198,15 @@ chmod +x run.sh
 
 echo -e "\nThe run.sh script has been created and made executable."
 
-# Refresh system library cache
-$ROOT ldconfig
+# Prompt the user if they want to start the server
+read -p "Do you want to start the Blockheads server now? (y/n): " START_SERVER
 
-# Execute the help command
-./blockheads_server171 --help
+if [ "$START_SERVER" == "y" ]; then
+    IP_ADDRESS=$(hostname -I | awk '{print $1}')
+    CONTAINER_ID=$(docker ps -ql)
+    echo "Starting the Blockheads server..."
+    ./run.sh &
+
+    echo -e "\nYour Blockheads server is now running!"
+    echo "Access it at: $IP_ADDRESS:$SERVER_PORT"
+    echo "To stop the server: Press Ctrl+C or use 'docker
