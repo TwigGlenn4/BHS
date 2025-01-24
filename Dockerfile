@@ -4,8 +4,8 @@ FROM ubuntu:latest
 # Set the working directory
 WORKDIR /app
 
-# Copy the script and binary files to the container
-COPY . .
+# Copy the Docker directory to the container
+COPY Docker /app/Docker
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
@@ -34,8 +34,8 @@ RUN apt-get update && apt-get install -y \
     libgcc-9-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Run the installation script
-RUN chmod +x ./Docker/Docker.sh
+# Ensure Docker.sh is executable
+RUN chmod +x /app/Docker/Docker.sh
 
-# Execute the start script
-CMD ["./Docker/Docker.sh"]
+# Set Docker.sh as the entry point
+ENTRYPOINT ["/app/Docker/Docker.sh"]
