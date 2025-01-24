@@ -206,7 +206,9 @@ if [ "$START_SERVER" == "y" ]; then
     CONTAINER_ID=$(docker ps -ql)
     echo "Starting the Blockheads server..."
     ./run.sh &
-
     echo -e "\nYour Blockheads server is now running!"
     echo "Access it at: $IP_ADDRESS:$SERVER_PORT"
-    echo "To stop the server: Press Ctrl+C
+    echo "To stop the server: Press Ctrl+C or use 'docker stop $CONTAINER_ID'"
+    echo "To start the server again: Run 'docker start $CONTAINER_ID' within the Docker container"
+else
+    echo
