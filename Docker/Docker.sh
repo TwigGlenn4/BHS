@@ -203,12 +203,13 @@ read -p "Do you want to start the Blockheads server now? (y/n): " START_SERVER
 
 if [ "$START_SERVER" == "y" ]; then
     IP_ADDRESS=$(hostname -I | awk '{print $1}')
-    CONTAINER_ID=$(docker ps -ql)
+    CONTAINER_ID=$(hostname)
     echo "Starting the Blockheads server..."
     ./run.sh &
+
     echo -e "\nYour Blockheads server is now running!"
     echo "Access it at: $IP_ADDRESS:$SERVER_PORT"
     echo "To stop the server: Press Ctrl+C or use 'docker stop $CONTAINER_ID'"
     echo "To start the server again: Run 'docker start $CONTAINER_ID' within the Docker container"
 else
-    echo
+    echo "You can start the Blockheads server later by running 'docker start <container-id>' within the Docker container."
