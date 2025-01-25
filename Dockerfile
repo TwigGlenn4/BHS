@@ -2,10 +2,10 @@
 FROM ubuntu:latest
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /Docker
 
 # Copy the Docker directory to the container
-COPY Docker /app/Docker
+COPY Docker /Docker
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Ensure Docker.sh is executable
-RUN chmod +x /app/Docker/Docker.sh
+RUN chmod +x /Docker/Docker.sh
 
 # Set Docker.sh as the entry point
-ENTRYPOINT ["/app/Docker/Docker.sh"]
+ENTRYPOINT ["/Docker/Docker.sh"]
